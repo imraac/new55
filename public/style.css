@@ -33,7 +33,7 @@ body {
     text-align: center;
     overflow: hidden;
     opacity: 1;
-    animation: fadeOutImage 4s ease-in-out forwards; /* Fade-out image after 4 seconds */
+  /* Fade-out image after 4 seconds */
 }
 
 /* Add the gradient fade at the bottom */
