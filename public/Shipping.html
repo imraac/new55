@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="Shipping.css" />
+  <link rel="stylesheet" href="Navbar.css" />
+  <title>Shipping Method</title>
+</head>
+<body>
+
+
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Checkout Content -->
+  <div class="checkout-container">
+
+    <div class="left-section">
+
+      <nav class="breadcrumb">
+        <a href="#">Cart</a>
+        <span>›</span>
+        <a href="#">Information</a>
+        <span>›</span>
+        <span class="current">Shipping</span>
+        <span>›</span>
+        <span>Payment</span>
+        <span>›</span>
+        <span>Place Order</span>
+      </nav>
+
+      <div class="info-box">
+        <div class="info-row">
+          <label>Contact</label>
+          <span id="contact-info"></span>
+          <a href="#" id="change-contact">Change</a>
+        </div>
+        <div class="info-row">
+          <label>Address</label>
+          <span id="address-info"></span>
+          <a href="#" id="change-address">Change</a>
+        </div>
+      </div>
+
+      <h2>Shipping method</h2>
+
+      <div class="shipping-option">
+        <input type="radio" name="shipping" checked />
+        <span>Orders outside of Nairobi will be delivered within 48 hours</span>
+      </div>
+
+      <a href="#" class="back-link">‹ Return to information</a>
+
+      <button class="primary-btn">Select Payment Method</button>
+
+      <footer class="footer">Copyright © 2025,  AGsoft. All rights reserved.</footer>
+
+    </div>
+
+    <div class="right-section">
+      <div class="product-summary">
+        <div class="item">
+          <img src="product.jpg" alt="product" />
+          <div class="details">
+            <p class="title"></p>
+            <p class="old-price"></p>
+            <p class="price"></p>
+          </div>
+          <p class="total"></p>
+        </div>
+      </div>
+
+      <div class="promo">
+        <input type="text" placeholder="Enter Promo Code" />
+        <button>Apply</button>
+      </div>
+
+      <div class="totals">
+        <div class="row">
+          <span>Subtotal</span>
+          <span id="subtotal">KSh 0.00</span>
+        </div>
+        <div class="row">
+          <span>Shipping</span>
+          <span id="shipping-cost">Free!</span>
+        </div>
+        <hr />
+        <div class="row total-row">
+          <strong>Total</strong>
+          <strong id="total">KSh 0.00</strong>
+        </div>
+        <p class="tax-note" id="tax-note">(includes KSh 0.00 Tax)</p>
+      </div>
+
+      <div class="secure">
+        <h3>Secured Payments</h3>
+        <img src="Assets/tomorrow.png" class="badge" />
+        <div class="secure-box">
+          Best in class security to ensure that your payments and data is secure.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load Navbar dynamically
+      fetch("Navbar.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("navbar-container").innerHTML = data;
+        })
+        .catch(err => console.error("Navbar load failed:", err));
+
+      // Load shipping info
+      let shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+      const contactInfoEl = document.getElementById("contact-info");
+      const addressInfoEl = document.getElementById("address-info");
+
+      function renderShippingInfo() {
+        contactInfoEl.textContent = shippingInfo.email || "";
+        addressInfoEl.textContent =
+          `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
+      }
+      renderShippingInfo();
+
+      // Edit contact
+      document.getElementById("change-contact").addEventListener("click", (e) => {
+        e.preventDefault();
+        const input = document.createElement("input");
+        input.type = "email";
+        input.value = shippingInfo.email || "";
+        input.placeholder = "Email address";
+        contactInfoEl.replaceWith(input);
+        input.focus();
+        input.addEventListener("blur", () => {
+          shippingInfo.email = input.value;
+          localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+          input.replaceWith(contactInfoEl);
+          renderShippingInfo();
+        });
+      });
+
+      // Edit address
+      document.getElementById("change-address").addEventListener("click", (e) => {
+        e.preventDefault();
+        const textarea = document.createElement("textarea");
+        textarea.value = `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
+        addressInfoEl.replaceWith(textarea);
+        textarea.focus();
+        textarea.addEventListener("blur", () => {
+          const parts = textarea.value.split(",").map(p => p.trim());
+          shippingInfo.street = parts[0] || "";
+          shippingInfo.apartment = parts[1] || "";
+          shippingInfo.city = parts[2] || "";
+          shippingInfo.region = parts[3] || "";
+          shippingInfo.country = parts[4] || "";
+          localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+          textarea.replaceWith(addressInfoEl);
+          renderShippingInfo();
+        });
+      });
+
+      // Load product info
+      const productData = JSON.parse(localStorage.getItem("checkoutProduct"));
+      if (productData) {
+        const productImg = document.querySelector(".product-summary .item img");
+        const productTitle = document.querySelector(".product-summary .item .title");
+        const productOld = document.querySelector(".product-summary .item .old-price");
+        const productPrice = document.querySelector(".product-summary .item .price");
+        const productTotal = document.querySelector(".product-summary .item .total");
+
+        productImg.src = productData.image;
+        productTitle.textContent = productData.title;
+        productOld.textContent = productData.oldPrice;
+        productPrice.textContent = productData.price;
+
+        const priceNumber = parseFloat(productData.price.replace(/[^\d.]/g, ""));
+        const quantity = parseInt(productData.quantity);
+        const subtotal = priceNumber * quantity;
+        const tax = subtotal * 0.14;
+        const total = subtotal + tax;
+
+        document.getElementById("subtotal").textContent = `KSh ${subtotal.toLocaleString()}`;
+        document.getElementById("tax-note").textContent = `(includes KSh ${tax.toLocaleString()} Tax)`;
+        productTotal.textContent = `KSh ${total.toLocaleString()}`;
+        document.getElementById("total").textContent = `KSh ${total.toLocaleString()}`;
+      }
+    });
+  </script>
+
+</body>
+</html>

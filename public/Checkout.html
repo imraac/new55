@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Clone</title>
+  <link rel="stylesheet" href="Checkout.css">
+  <link rel="stylesheet" href="Navbar.css">
+</head>
+<body>
+
+
+
+
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Checkout Page Content -->
+  <div class="page">
+    <div class="breadcrumb">Cart › <strong>Information</strong> › Shipping › Payment › Place Order</div>
+
+    <div class="checkout">
+      <main class="left-col">
+        <h1 class="section-title">Information</h1>
+        <input class="field full" type="email" placeholder="Email address">
+
+        <h1 class="section-title">Shipping address</h1>
+        <div class="two">
+          <input class="field" type="text" placeholder="First name">
+          <input class="field" type="text" placeholder="Last name">
+        </div>
+
+        <select class="field">
+          <option>Kenya</option>
+        </select>
+
+        <select class="field">
+          <option>Select an option...</option>
+        </select>
+
+        <input class="field" type="text" placeholder="Street address">
+        <input class="field" type="text" placeholder="Apartment, suite, unit, etc.">
+        <input class="field" type="text" placeholder="Town / City">
+        <input class="field" type="text" placeholder="Phone">
+
+        <a class="return-link">‹ Return to cart</a>
+
+        <div class="actions">
+          <button class="btn-primary">Select Shipping Method</button>
+        </div>
+      </main>
+
+      <aside class="right-col">
+        <div class="cart-item">
+          <img src="https://via.placeholder.com/80" alt="product">
+          <div class="item-meta">
+            <div class="item-title">L'Oréal Paris Duo Serum<br><span class="muted">Revitalift Pack</span></div>
+            <div class="prices">
+              <span class="strike">KSh 5,900.00</span>
+              <span class="price-small">KSh 3,540.00</span>
+            </div>
+          </div>
+          <div class="item-total">KSh 7,080.00</div>
+        </div>
+
+        <div class="promo">
+          <input class="field promo-field" type="text" placeholder="Enter Promo Code">
+          <button class="btn-apply" disabled>Apply</button>
+        </div>
+
+        <div class="summary">
+          <div class="summary-row"><span>Subtotal</span><span id="subtotal">KSh 0.00</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="shipping">Free!</span></div>
+          <div class="divider"></div>
+          <div class="summary-row total-row"><strong>Total</strong><strong id="total">KSh 0.00</strong></div>
+          <div class="tax-note" id="tax-note">(includes KSh 0.00 Tax)</div>
+        </div>
+
+        <h3 class="secure-title">Secured Payments</h3>
+        <div class="secure">
+          <div class="paystack-badge">🔒</div>
+          <div class="secure-text">Best in class security to ensure that your payments and data is secure.</div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="site-footer">Copyright © 2025, AGsoft. All rights reserved.</footer>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load Navbar dynamically
+      fetch("Navbar.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("navbar-container").innerHTML = data;
+        })
+        .catch(err => console.error("Navbar load failed:", err));
+
+      // Load product info from localStorage
+      const productData = JSON.parse(localStorage.getItem("checkoutProduct"));
+      if (productData) {
+        const cartItem = document.querySelector(".cart-item img");
+        const itemTitle = document.querySelector(".item-title");
+        const itemPrices = document.querySelector(".prices .strike");
+        const itemPriceSmall = document.querySelector(".prices .price-small");
+        const itemTotal = document.querySelector(".item-total");
+
+        const subtotalEl = document.getElementById("subtotal");
+        const totalEl = document.getElementById("total");
+        const taxNote = document.getElementById("tax-note");
+
+        cartItem.src = productData.image;
+        itemTitle.innerHTML = `${productData.title}<br><span class="muted">SKU: ${productData.sku}</span>`;
+        itemPrices.textContent = productData.oldPrice;
+        itemPriceSmall.textContent = productData.price;
+
+        const priceNumber = parseFloat(productData.price.replace(/[^\d.]/g, ""));
+        const quantity = parseInt(productData.quantity);
+        const subtotal = priceNumber * quantity;
+        const tax = subtotal * 0.14;
+        const total = subtotal + tax;
+
+        subtotalEl.textContent = `KSh ${subtotal.toLocaleString()}`;
+        taxNote.textContent = `(includes KSh ${tax.toLocaleString()} Tax)`;
+        totalEl.textContent = `KSh ${total.toLocaleString()}`;
+        itemTotal.textContent = `KSh ${total.toLocaleString()}`;
+      }
+
+      // Save shipping info and redirect
+      const shippingBtn = document.querySelector(".btn-primary");
+      shippingBtn.addEventListener("click", () => {
+        const shippingInfo = {
+          email: document.querySelector('input[type="email"]').value,
+          firstName: document.querySelector('input[placeholder="First name"]').value,
+          lastName: document.querySelector('input[placeholder="Last name"]').value,
+          country: document.querySelectorAll('select.field')[0].value,
+          region: document.querySelectorAll('select.field')[1].value,
+          street: document.querySelector('input[placeholder="Street address"]').value,
+          apartment: document.querySelector('input[placeholder="Apartment, suite, unit, etc."]').value,
+          city: document.querySelector('input[placeholder="Town / City"]').value,
+          phone: document.querySelector('input[placeholder="Phone"]').value
+        };
+        localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+        window.location.href = "Shipping.html";
+      });
+    });
+  </script>
+
+</body>
+</html>

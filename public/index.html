@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Deals</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- This is where the navbar will be dynamically injected -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header with background image -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-right">
+                    <h1>Holiday deals</h1>
+                    <h2>Gifts for her under $50</h2>
+                </div>
+            </div>
+        </header>
+
+        <!-- Video Background Section -->
+        <div class="video-background">
+            <video autoplay muted loop id="video-background">
+                <source src="Assets/watch vedio.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Main Content -->
+        <div class="categories">
+            <!-- Shop by Price Section -->
+            <section class="category">
+                <h3>Shop gifts by price</h3>
+                <div class="category-boxes">
+                    <div class="category-item">
+                        <img src="Assets/watch1.jpg" alt="Under $10">
+                        <p>Under $10</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/watch2.jpg" alt="Under $25">
+                        <p>Under $25</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/watch3.webp" alt="Under $50">
+                        <p>Under $50</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/drown.webp" alt="Deals">
+                        <p>Deals</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop by Recipient Section -->
+            <section class="category">
+                <h3>Shop gifts by recipient</h3>
+                <a href="http://127.0.0.1:5500/public/Productcart.html" class="category-link">
+                    <div class="category-boxes">
+                        <div class="category-item">
+                            <img src="Assets/croptop.jpg" alt="For Him">
+                            <p>For him</p>
+                        </div>
+                        <div class="category-item">
+                            <img src="Assets/socks1.jpg" alt="For Her">
+                            <p>For her</p>
+                        </div>
+                        <div class="category-item">
+                            <img src="Assets/swaeter.jpg" alt="For Kids">
+                            <p>For kids</p>
+                        </div>
+                        <div class="category-item">
+                            <img src="Assets/swaeter.jpg" alt="For Teens">
+                            <p>For teens</p>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
+            <!-- Gaming Section -->
+            <section class="category">
+                <h3>Get your game on</h3>
+                <a href="http://127.0.0.1:5500/public/Productcart.html" class="category-link">
+                    <div class="category-image">
+                        <img src="Assets/drown.webp" alt="Gaming PC">
+                    </div>
+                </a>
+            </section>
+
+            <!-- Home Essentials Section -->
+            <section class="category">
+                <h3>Shop for your home essentials</h3>
+                <div class="category-boxes">
+                    <div class="category-item">
+                        <img src="Assets/lamp.webp" alt="Cleaning Tools">
+                        <p>Cleaning Tools</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/cctv.webp" alt="Home Storage">
+                        <p>Home Storage</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/wire.webp" alt="Home Decor">
+                        <p>Home Decor</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/cctv.webp" alt="Bedding">
+                        <p>Bedding</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fashion Section -->
+            <section class="category">
+                <h3>Shop Fashion for less</h3>
+                <div class="category-boxes">
+                    <div class="category-item">
+                        <img src="Assets/beanie.jpg" alt="Jeans under $50">
+                        <p>Jeans under $50</p>
+                    </div>
+                    <div class="category-item">
+                        <img src="Assets/beanie2.jpg" alt="Tops under $25">
+                        <p>Tops under $25</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to load the Navbar.html into the navbar-container div
+        window.onload = function() {
+            fetch('Navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading the navbar:', error);
+                });
+        };
+    </script>
+
+</body>
+</html>

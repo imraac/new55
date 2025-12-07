@@ -1,0 +1,274 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+body {
+  background: #fff;
+  color: #333;
+}
+
+.checkout-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto;
+  gap: 60px;
+}
+
+.left-section {
+  flex: 1;
+}
+
+.right-section {
+  width: 420px;
+  border-left: 1px solid #e5e5e5;
+  padding-left: 40px;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.breadcrumb a {
+  color: #777;
+  text-decoration: none;
+}
+
+.breadcrumb .current {
+  color: #000;
+}
+
+/* Info Box */
+.info-box {
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  background-color: #fafafa;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row:hover {
+  background: #f7f7f7;
+}
+
+.info-row label {
+  color: #555;
+  font-weight: 500;
+  width: 80px;
+}
+
+.info-row span {
+  flex: 1;
+  padding: 6px 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  overflow-wrap: anywhere;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Editable input for change */
+.info-row input,
+.info-row textarea {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.info-row input:focus,
+.info-row textarea:focus {
+  outline: none;
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+/* Change link */
+.info-row a {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #0070f3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.info-row a:hover {
+  color: #0051a8;
+}
+
+/* Headings */
+h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* Shipping Options */
+.shipping-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e5e5e5;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+/* Back Link */
+.back-link {
+  font-size: 14px;
+  color: #777;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+/* Primary Button - keep original colors */
+.primary-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: opacity 0.2s;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+/* Footer */
+.footer {
+  font-size: 13px;
+  color: #777;
+  margin-top: 60px;
+}
+
+/* Right Section - Product Summary */
+.product-summary .item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.product-summary img {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.details {
+  flex: 1;
+}
+
+.details .title {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #777;
+  font-size: 13px;
+}
+
+.price {
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.total {
+  font-size: 15px;
+  margin-left: auto;
+}
+
+/* Promo */
+.promo {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.promo input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.promo button {
+  padding: 12px 18px;
+  border: none;
+  background: #e5e5e5;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Totals */
+.totals .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.total-row {
+  font-size: 17px;
+}
+
+.tax-note {
+  font-size: 13px;
+  color: #777;
+}
+
+/* Secure Payments */
+.secure {
+  margin-top: 35px;
+}
+
+.secure h3 {
+  font-size: 17px;
+  margin-bottom: 12px;
+}
+
+.badge {
+  height: 30px;
+  margin-bottom: 12px;
+}
+
+.secure-box {
+  border: 1px solid #e5c17b;
+  background: #fff8e1;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+}
