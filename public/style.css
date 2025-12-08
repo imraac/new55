@@ -245,28 +245,45 @@
         grid-template-columns: 1fr;
     }
 }
-/* ===== FESTIVE TEXT SECTION ===== */
+
+/* ===== FESTIVE TEXT SECTION (Dancing Script Edition) ===== */
 .festive-text {
     text-align: center;
     margin-top: 45px;
     margin-bottom: 25px;
-    font-family: 'Plus Jakarta Sans', sans-serif ;
+    font-family: "Dancing Script", cursive !important;
 }
 
 /* MAIN TITLE */
 .festive-text h1 {
-    font-size: 34px;
-    font-weight: 800;
+    font-size: 48px;
+    font-weight: 700;
     margin-bottom: 12px;
     color: #111;
-    letter-spacing: 0.1px;
 }
 
 /* TREE SUBTITLE */
 .festive-text .sub-title {
-    font-size: 17px;
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 600;
     margin: 0;
+    color: #111;
+}
+
+/* DESCRIPTION */
+.festive-text .description {
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* "EX UK Festive Deals" */
+.festive-text .ex-title {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 20px;
     color: #111;
 }
 
