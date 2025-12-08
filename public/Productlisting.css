@@ -80,8 +80,8 @@ body {
 .pl-sidebar {
   background: #fff;
   padding: 10px 0;
-  border-radius: 8px;
-  border: 1px solid white;
+
+  border: 1px solid rgb(250, 247, 225);
   max-height: 100vh;
   overflow-y: auto;
 }
@@ -312,5 +312,20 @@ body {
   }
   .pl-burger-btn {
     display: flex;
+  }
+}
+.pl-burger-btn {
+  display: none;       /* hidden on large screens */
+  width: 25px;         /* adjust size as needed */
+  height: 25px;
+  cursor: pointer;
+
+  position: relative;  /* or just remove position entirely */
+  /* remove top, left, z-index */
+}
+
+@media screen and (max-width: 992px) {
+  .pl-burger-btn {
+    display: block;    /* show on small screens */
   }
 }

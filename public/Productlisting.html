@@ -6,73 +6,7 @@
   <title>Product Listing Clone</title>
   <link rel="stylesheet" href="Productlisting.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* Overlay behind sidebar on small screens */
-    .pl-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.3);
-      z-index: 900;
-    }
 
-    /* Burger menu inside header */
-    .pl-burger-btn {
-      display: none; /* hidden on large screens */
-      cursor: pointer;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 20px;
-      width: 25px;
-    }
-
-    .pl-burger-btn span {
-      height: 3px;
-      width: 100%;
-      background: #000;
-      border-radius: 2px;
-    }
-
-    /* Responsive Sidebar */
-    @media screen and (max-width: 992px) {
-      .pl-layout {
-        grid-template-columns: 1fr;
-        padding: 25px 20px;
-      }
-      .pl-sidebar {
-        position: fixed;
-        top: 0;
-        left: -300px;
-        width: 280px;
-        height: 100%;
-        z-index: 1000;
-        background: #fff;
-        border-right: 1px solid #e1e1e1;
-        padding: 20px 0;
-        overflow-y: auto;
-        transition: left 0.3s ease;
-      }
-      .pl-sidebar.active {
-        left: 0;
-      }
-      .pl-products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
-      }
-      .pl-overlay.active {
-        display: block;
-      }
-      .pl-menu-img {
-        display: none;
-      }
-      .pl-burger-btn {
-        display: flex;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -82,14 +16,11 @@
 <header class="pl-top-header">
   <div class="pl-header-left">
     <div class="pl-icons">
-      <!-- Burger menu replaces menu.png -->
-      <div class="pl-burger-btn" id="pl-burger-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <img src="Assets/grid.png" class="pl-icon">
-    </div>
+  <!-- Burger menu as PNG -->
+  <img src="Assets/sort.png" alt="Menu" class="pl-burger-btn" id="pl-burger-btn">
+  <img src="Assets/grid.png" class="pl-icon">
+</div>
+
     <p class="pl-result-text">Showing all 14 results</p>
   </div>
   <div class="pl-header-right">
@@ -264,13 +195,24 @@ const minPrice = parseInt(slider.dataset.min);
 const maxPrice = parseInt(slider.dataset.max);
 
 // Toggle sidebar
-burgerBtn.addEventListener('click', () => {
+burgerBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent document click from immediately closing sidebar
   sidebar.classList.toggle('active');
   overlay.classList.toggle('active');
 });
+
+// Close sidebar when clicking overlay
 overlay.addEventListener('click', () => {
   sidebar.classList.remove('active');
   overlay.classList.remove('active');
+});
+
+// Close sidebar when clicking anywhere outside sidebar
+document.addEventListener('click', (e) => {
+  if (!sidebar.contains(e.target) && !burgerBtn.contains(e.target)) {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  }
 });
 
 // Price slider display
@@ -298,6 +240,7 @@ filterBtn.addEventListener('click', () => {
   });
 });
 </script>
+
 
 </body>
 </html>
