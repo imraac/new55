@@ -251,7 +251,7 @@
     text-align: center;
     margin-top: 45px;
     margin-bottom: 25px;
-    font-family: "Dancing Script", cursive !important;
+ 
 }
 
 /* MAIN TITLE */
@@ -259,15 +259,7 @@
     font-size: 48px;
     font-weight: 700;
     margin-bottom: 12px;
-    color: #111;
-}
-
-/* TREE SUBTITLE */
-.festive-text .sub-title {
-    font-size: 32px;
-    font-weight: 600;
-    margin: 0;
-    color: #111;
+    color: #070707;
 }
 
 /* DESCRIPTION */
@@ -278,28 +270,10 @@
     color: #444;
     line-height: 1.5;
 }
-
-/* "EX UK Festive Deals" */
-.festive-text .ex-title {
-    font-size: 42px;
-    font-weight: 700;
-    margin-top: 20px;
-    color: #111;
-}
-
-/* DESCRIPTION UNDER IT */
-.festive-text .description {
-    font-size: 15.5px;
-    margin-top: 8px;
-    margin-bottom: 30px;
-    color: #444;
-    line-height: 1.6;
-}
-
-/* "EX UK FESTIVE DEALS" */
-.festive-text .ex-title {
-    font-size: 30px;
-    font-weight: 800;
-    margin-top: 20px;
-    color: #111;
+.festive-text, 
+.festive-text *, 
+.festive-text h1, 
+.festive-text p {
+    font-family: "Dancing Script", cursive !important;
+    
 }
