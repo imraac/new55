@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: white;
+  background: #fff;
 }
 
 /* ---------------- HEADER ---------------- */
@@ -10,46 +10,14 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 18px 60px;
-  background: white;
-  border-bottom: 1px solid white;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .pl-header-left {
   display: flex;
   align-items: center;
   gap: 25px;
-}
-
-.pl-icons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pl-icons .pl-icon {
-  width: 22px;
-  cursor: pointer;
-}
-
-/* Hide menu.png on small screens, show burger menu instead */
-.pl-menu-img {
-  display: inline-block;
-}
-
-.pl-burger-btn {
-  display: none; /* hidden on large screens */
-  cursor: pointer;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 20px;
-  width: 25px;
-}
-
-.pl-burger-btn span {
-  height: 3px;
-  width: 100%;
-  background: #000;
-  border-radius: 2px;
 }
 
 .pl-result-text {
@@ -60,6 +28,26 @@ body {
 .pl-latest {
   font-size: 14px;
   cursor: pointer;
+}
+
+/* Filter button */
+.pl-filter-toggle {
+  background: #FFD700;
+  border: 1px solid #FFD700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.pl-filter-toggle:hover {
+  background: #e8e8e8;
+}
+
+.pl-filter-toggle:active {
+  transform: scale(0.97);
 }
 
 /* ---------------- PAGE LAYOUT ---------------- */
@@ -80,10 +68,10 @@ body {
 .pl-sidebar {
   background: #fff;
   padding: 10px 0;
-
   border: 1px solid rgb(250, 247, 225);
   max-height: 100vh;
   overflow-y: auto;
+  position: relative;
 }
 
 .pl-sidebar-title {
@@ -142,7 +130,7 @@ body {
 
 .pl-filter-btn {
   background: #050404;
-  color: white;
+  color: #fff;
   border: none;
   padding: 6px 18px;
   border-radius: 6px;
@@ -162,6 +150,7 @@ body {
   flex-direction: column;
   gap: 15px;
   padding: 0 20px 20px;
+  
 }
 
 .pl-recent-product-card {
@@ -283,6 +272,11 @@ body {
     padding: 25px 20px;
   }
 
+  .pl-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
   .pl-sidebar {
     position: fixed;
     top: 0;
@@ -290,8 +284,8 @@ body {
     width: 280px;
     height: 100%;
     z-index: 1000;
-    background: #dd6808 !important;
-    border-right: 1px solid #e1e1e1;
+    background: #dd6808 ;
+    border-right: 1px solid #dd965b ;
     padding: 20px 0;
     overflow-y: auto;
     transition: left 0.3s ease;
@@ -301,31 +295,28 @@ body {
     left: 0;
   }
 
-  .pl-products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+
+  .pl-close-sidebar {
+    display: block;
   }
 
-  /* Burger menu replaces menu.png */
-  .pl-menu-img {
-    display: none;
-  }
-  .pl-burger-btn {
-    display: flex;
+  .pl-top-header {
+    padding: 18px 20px;
   }
 }
-.pl-burger-btn {
-  display: none;       /* hidden on large screens */
-  width: 25px;         /* adjust size as needed */
-  height: 25px;
-  cursor: pointer;
 
-  position: relative;  /* or just remove position entirely */
-  /* remove top, left, z-index */
+/* Overlay for mobile sidebar */
+.pl-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: none;
+  z-index: 999;
 }
 
-@media screen and (max-width: 992px) {
-  .pl-burger-btn {
-    display: block;    /* show on small screens */
-  }
+.pl-overlay.active {
+  display: block;
 }

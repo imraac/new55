@@ -3,53 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="stylesheet" href="Navbar.css">
+  <title>AGsoft</title>
 </head>
+
 <body>
 
-  <div class="promo-banner">
-   <div class="promo-left">
-  <div class="image-wrapper">
-    <img src="Assets/blackfriday.jpg" alt="">
-    <img src="Assets/blackfriday.jpg" alt="">
-    <img src="Assets/blackfriday.jpg" alt="">
+<!-- ================= PROMO BANNER ================= -->
+<div class="promo-banner">
+  <div class="promo-left">
+    <div class="image-wrapper">
+      <img src="Assets/blackfriday.jpg" alt="">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTECNydnuKo3H9uqbhpqvLPR-ZQo8ot31YMMQ&s" alt="">
+      <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/special-offer-design-template-bb5b7ed65a6c7bd00152e07952444a40_screen.jpg?ts=1732646473" alt="">
+    </div>
+  </div>
+
+  <div class="promo-right">
+    <div class="promo-text-wrapper">
+      <span>EXTENDED FOR YOU! </span>
+      <span>50% OFF on Electronics! </span>
+      <span>Free Shipping Today! </span>
+      <span>New Arrivals Just In! ✨</span>
+    </div>
   </div>
 </div>
 
-    <div class="promo-right">
-      <div class="promo-text-wrapper">
-        <span>EXTENDED FOR YOU! 🎉</span>
-        <span>50% OFF on Electronics! 🔥</span>
-        <span>Free Shipping Today! 🚚</span>
-        <span>New Arrivals Just In! ✨</span>
-      </div>
-    </div>
+<!-- ================= TOP BAR ================= -->
+<div class="top-bar">
+  <div class="sell-jumia">
+    <span>Sell on AGsoft</span> | Start Now
+  </div>
+</div>
+
+<!-- ================= MAIN NAVIGATION ================= -->
+<nav class="navbar">
+  <div class="navbar-left">
+    <div class="menu-icon" id="nav-burger">&#9776;</div>
+   
   </div>
 
-
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="sell-jumia"><span>Sell on AGsoft</span> | Start Now</div>
+  <div class="navbar-center">
+    <input type="text" placeholder="Search products, brands and categories">
+    <button class="search-btn">Search</button>
   </div>
 
+  <div class="navbar-right">
+    <div class="account">Account ▼</div>
+    <div class="help">Help ▼</div>
+    <div class="cart">🛒 Cart</div>
+  </div>
+</nav>
 
-  <nav class="navbar">
-    <div class="navbar-left">
-      <div class="menu-icon">&#9776;</div>
-      <div class="logo">AGsoft <span class="star">⭐</span></div>
-    </div>
+<!-- ================= CATEGORY NAVBAR ================= -->
+<nav class="nav">
+  <div class="nav-container">
+    <ul class="nav-links">
+      <li>MOBILE ACCESSORIES</li>
+      <li>APPLE</li>
+      <li>PIXEL PHONES</li>
+      <li>SAMSUNG</li>
+      <li>INFINIX</li>
+      <li>ONEPLUS</li>
+      <li>NOTHING PHONES</li>
+      <li>OPPO</li>
+      <li>REALME</li>
+      <li>TECNO</li>
+    </ul>
+  </div>
 
-    <div class="navbar-center">
-      <input type="text" placeholder="Search products, brands and categories">
-      <button class="search-btn">Search</button>
-    </div>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="close-btn" id="close-sidebar">✖</div>
+    <ul>
+      <li>MOBILE ACCESSORIES</li>
+      <li>APPLE</li>
+      <li>PIXEL PHONES</li>
+      <li>SAMSUNG</li>
+      <li>INFINIX</li>
+      <li>ONEPLUS</li>
+      <li>NOTHING PHONES</li>
+      <li>OPPO</li>
+      <li>REALME</li>
+      <li>TECNO</li>
+    </ul>
+  </div>
+</nav>
 
-    <div class="navbar-right">
-      <div class="account">Account ▼</div>
-      <div class="help">Help ▼</div>
-      <div class="cart">🛒 Cart</div>
-    </div>
-  </nav>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const navBurger = document.getElementById("nav-burger");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebar = document.getElementById("close-sidebar");
+
+    navBurger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebar.classList.add("open");
+    });
+
+    closeSidebar.addEventListener("click", () => {
+        sidebar.classList.remove("open");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!sidebar.contains(e.target) && !navBurger.contains(e.target)) {
+            sidebar.classList.remove("open");
+        }
+    });
+});
+</script>
+
 </body>
 </html>

@@ -169,6 +169,9 @@
         .then(res => res.text())
         .then(data => {
             document.getElementById('navbar-container').innerHTML = data;
+
+            // ⭐ Initialize Navbar Sidebar Script AFTER loading HTML
+            initNavbarSidebar();
         })
         .catch(err => console.error('Error loading navbar:', err));
 
@@ -179,30 +182,55 @@
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = data;
 
-            // Grab only the page-wrapper content
             const productContent = tempDiv.querySelector('.pl-page-wrapper');
-            if(productContent) {
+            if (productContent) {
                 document.getElementById('product-listing-container').appendChild(productContent);
             }
 
-            // Add CSS for Product Listing
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = 'Productlisting.css';
             document.head.appendChild(link);
 
-            // ===== Initialize Product Listing JS after HTML is injected =====
             initProductListing();
         })
         .catch(err => console.error('Error loading product listing:', err));
 
+
+    /* -------------------------------------------------------------
+       ⭐⭐ NAVBAR SIDEBAR FUNCTION (COPIED EXACTLY FROM NAVBAR FILE)
+    --------------------------------------------------------------*/
+    function initNavbarSidebar() {
+        const navBurger = document.getElementById("nav-burger");
+        const sidebar = document.getElementById("sidebar");
+        const closeSidebar = document.getElementById("close-sidebar");
+
+        if (!navBurger || !sidebar || !closeSidebar) return;
+
+        navBurger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            sidebar.classList.add("open");
+        });
+
+        closeSidebar.addEventListener("click", () => {
+            sidebar.classList.remove("open");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!sidebar.contains(e.target) && !navBurger.contains(e.target)) {
+                sidebar.classList.remove("open");
+            }
+        });
+    }
+
+    /* -------------------------------------------------------------
+       ⭐⭐ PRODUCT LISTING SCRIPT (kept the same)
+    --------------------------------------------------------------*/
     function initProductListing() {
-        // Sidebar toggle
         const burgerBtn = document.getElementById('pl-burger-btn');
         const sidebar = document.querySelector('.pl-sidebar');
         let overlay = document.getElementById('pl-overlay');
 
-        // If overlay doesn't exist, create it (for safety)
         if (!overlay) {
             overlay = document.createElement('div');
             overlay.id = 'pl-overlay';
@@ -220,7 +248,6 @@
             overlay.classList.remove('active');
         });
 
-        // Price Slider and Filter
         const slider = document.querySelector('.pl-range-slider');
         const priceLabel = document.querySelector('.pl-price-label');
         const filterBtn = document.querySelector('.pl-filter-btn');
@@ -242,17 +269,17 @@
 
         filterBtn.addEventListener('click', () => {
             const selectedPrice = Math.round(minPrice + ((maxPrice - minPrice) * (slider.value / 100)));
-            const tolerance = selectedPrice * 0.1; // 10% tolerance
+            const tolerance = selectedPrice * 0.1;
 
             products.forEach(product => {
                 const priceText = product.querySelector('.pl-product-price').textContent;
-                const [productMin, productMax] = parsePrice(priceText).length === 2
-                    ? parsePrice(priceText)
-                    : [parsePrice(priceText)[0], parsePrice(priceText)[0]];
+                const parsed = parsePrice(priceText);
+                const [minP, maxP] = parsed.length === 2 ? parsed : [parsed[0], parsed[0]];
 
-                product.style.display = (selectedPrice >= productMin - tolerance && selectedPrice <= productMax + tolerance)
-                    ? 'block'
-                    : 'none';
+                product.style.display =
+                    (selectedPrice >= minP - tolerance && selectedPrice <= maxP + tolerance)
+                        ? 'block'
+                        : 'none';
             });
         });
     }
