@@ -107,164 +107,188 @@ body {
     font-family: "Dancing Script", cursive !important;
 }
 
-/* ================================
-   MAIN CATEGORIES GRID
-================================ */
-.categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-    padding: 0 12px;
+
+
+
+
+
+
+/* ===== BESTSELLING ITEMS SECTION ===== */
+.bestselling-items {
+    margin: 40px 0;
 }
 
-/* category card */
-.category {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding-bottom: 10px;
+.bestselling-items h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 0 20px;
 }
 
-.category:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+/* Slider container */
+.bestselling-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 0 20px;
+    flex-wrap: nowrap;
+    scroll-padding-left: 20px;
 }
 
-.category h3 {
-    font-size: clamp(18px, 3vw, 24px);
-    text-align: center;
-    padding: 18px 10px;
-    color: #222;
-    font-weight: 700;
+/* Hide scrollbar for cleaner look */
+.bestselling-slider::-webkit-scrollbar {
+    display: none;
+}
+.bestselling-slider {
+    -ms-overflow-style: none;  /* IE & Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-/* Category Boxes */
-.category-boxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-    padding: 0 15px 20px 15px;
-}
-
-/* Category Item */
-.category-item {
-    background: #fefefe;
-    border-radius: 10px;
+/* Card styles */
+.bestselling-card {
+    flex: 0 0 200px; /* default width for desktop */
+    background: #fff;
     padding: 12px;
-    text-align: center;
-    border: 1px solid #eee;
-    transition: all .3s ease;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.2s;
 }
 
-.category-item:hover {
-    background: linear-gradient(145deg, #ffeaea, #fff6f6);
+.bestselling-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
 }
 
-.category-item img {
+.bestselling-card img {
     width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    transition: transform .3s ease;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 12px;
 }
 
-.category-item:hover img {
-    transform: scale(1.05);
+.label.rollback {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #d32f2f;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
 }
 
-/* Large image category */
-.category-image img {
+.add-btn {
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: .3s;
+    text-align: center;
+    transition: background 0.2s;
 }
 
-.category-image img:hover {
-    transform: scale(1.05);
+.add-btn:hover {
+    background: #005bb5;
 }
 
-/* ================================
-   RESPONSIVE BREAKPOINTS
-================================ */
+.price {
+    font-size: 14px;
+    margin: 8px 0;
+    text-align: center;
+}
 
-/* Tablets */
-@media (max-width: 900px) {
-    .categories {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.price .now {
+    color: #007600;
+    font-weight: 600;
+}
+
+.price .old {
+    text-decoration: line-through;
+    margin-left: 5px;
+    color: #888;
+}
+
+.product-name {
+    font-size: 13px;
+    margin-bottom: 6px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.rating {
+    font-size: 12px;
+    color: #ffb400;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.delivery {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Small devices (phones) */
+@media (max-width: 480px) {
+    .bestselling-card {
+        flex: 0 0 140px; /* smaller cards */
+        padding: 10px;
     }
 
-    .category-item img {
-        height: 120px;
+    .bestselling-items h2 {
+        font-size: 20px;
     }
 
-    .category-image img {
-        height: 180px;
+    .price {
+        font-size: 12px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .rating, .delivery {
+        font-size: 11px;
+    }
+
+    .add-btn {
+        font-size: 12px;
+        padding: 6px 10px;
     }
 }
 
-/* Large phones */
-@media (max-width: 768px) {
-    .categories {
-        grid-template-columns: 1fr 1fr;
+/* Medium devices (phones + small tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .bestselling-card {
+        flex: 0 0 160px;
     }
 
-    .category-boxes {
-        grid-template-columns: 1fr 1fr;
+    .bestselling-items h2 {
+        font-size: 22px;
     }
 
-    .category-item img {
-        height: 110px;
-    }
-
-    .category-image img {
-        height: 160px;
+    .product-name {
+        font-size: 12.5px;
     }
 }
 
-/* Small Phones (iPhone SE, small Androids) */
-@media (max-width: 500px) {
-    .categories {
-        grid-template-columns: 1fr;
-        gap: 15px;
+/* Large tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .bestselling-card {
+        flex: 0 0 180px;
     }
 
-    .category-boxes {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .category-item img {
-        height: 100px;
-    }
-
-    .category-image img {
-        height: 145px;
-    }
-
-    .category h3 {
-        font-size: 1.2rem;
-    }
-}
-
-/* Extra small screens (Galaxy Fold, iPhone Mini) */
-@media (max-width: 360px) {
-    .category-item img {
-        height: 90px;
-    }
-
-    .category-image img {
-        height: 130px;
-    }
-
-    .category h3 {
-        font-size: 1rem;
+    .bestselling-items h2 {
+        font-size: 23px;
     }
 }
