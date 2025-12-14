@@ -33,6 +33,7 @@ h1 span {
   align-items: center;
   gap: 10px;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .shipping-box {
@@ -58,7 +59,7 @@ h1 span {
 }
 
 .seller a {
-  color: #dd6808 ;
+  color: #dd6808;
   text-decoration: none;
 }
 
@@ -100,7 +101,7 @@ h1 span {
 .actions button {
   background: none;
   border: none;
-  color: #4e2605 ;
+  color: #4e2605;
   cursor: pointer;
 }
 
@@ -127,42 +128,55 @@ h2 {
   margin: 25px 0 15px;
 }
 
+/* ===== Essentials Section Styling ===== */
 .essentials {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 15px;
+  margin-bottom: 30px;
 }
 
 .card {
   background: #fff;
-  border-radius: 8px;
-  padding: 10px;
+
+  padding: 12px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .card img {
   width: 100%;
-  max-height: 90px;
+  max-height: 120px;
   object-fit: contain;
+  border-radius: 8px;
 }
 
-.card span {
+.card .price-tag {
   display: block;
   margin: 10px 0;
   font-weight: bold;
-}
-
-.card .now {
   color: #2a8703;
 }
 
-.card button {
-  background: #dd6808 ;
+.card button.add-essential {
+  background: #dd6808;
   color: #fff;
   border: none;
   border-radius: 20px;
   padding: 6px 14px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.card button.add-essential:hover {
+  background: #bb5606;
 }
 
 .summary {
@@ -174,7 +188,7 @@ h2 {
 
 .checkout {
   width: 100%;
-  background: #dd6808 ;
+  background: #dd6808;
   color: #fff;
   border: none;
   border-radius: 30px;
@@ -201,22 +215,23 @@ h2 {
 .total {
   font-size: 16px;
 }
+
 .delivery-header {
   display: flex;
   align-items: center;
-  gap: 6px;              /* tighter spacing */
+  gap: 6px;
   cursor: pointer;
   user-select: none;
 }
 
 .delivery-header .arrow {
-  margin-left: 6px;      /* keeps arrow close, not pushed far right */
+  margin-left: 6px;
   font-size: 14px;
 }
 
 .delivery-options {
   display: none;
-  margin-top: 6px;       /* brings dropdown closer to header */
+  margin-top: 6px;
   gap: 12px;
 }
 
@@ -228,7 +243,7 @@ h2 {
   flex: 1;
   border: 2px solid #ccc;
   border-radius: 12px;
-  padding: 16px;         /* slightly tighter */
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -259,12 +274,13 @@ h2 {
   color: #555;
   font-size: 12px;
 }
+
 .toast {
   position: fixed;
-  bottom: -80px;                 /* hidden by default */
+  bottom: -80px;
   left: 50%;
   transform: translateX(-50%);
-  background: #6fbf2e;           /* green like image */
+  background: #6fbf2e;
   color: #fff;
   padding: 14px 20px;
   border-radius: 8px;
@@ -282,7 +298,7 @@ h2 {
 }
 
 .toast.show {
-  bottom: 25px;                  /* pops up */
+  bottom: 25px;
   opacity: 1;
 }
 
@@ -299,4 +315,76 @@ h2 {
   font-size: 22px;
   cursor: pointer;
   line-height: 1;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 1200px) {
+  .page {
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  .essentials {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .essentials {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .item img {
+    width: 100%;
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .essentials {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .checkout {
+    font-size: 14px;
+    padding: 12px;
+  }
+  .price {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .essentials {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .item img {
+    width: 100%;
+    max-width: 100%;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .qty {
+    margin-top: 8px;
+  }
+  .delivery-options {
+    flex-direction: column;
+  }
+  .option {
+    padding: 12px;
+    gap: 10px;
+  }
+  .circle {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
 }

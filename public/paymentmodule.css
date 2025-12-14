@@ -1,0 +1,224 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+body {
+  background: #f0f6fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Payment Container */
+.payment-container {
+  display: flex;
+  width: 95%;
+  max-width: 1200px;
+  min-height: 700px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Left Panel */
+.left-panel {
+  flex: 1;
+  background: linear-gradient(180deg, #e0f7ff, #c0eaff);
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically */
+  padding: 0;               /* remove extra padding */
+}
+
+/* M-PESA Logo */
+.payment-logos img {
+  height: 140px; /* logo size */
+  width: auto;
+  transition: transform 0.3s;
+}
+
+.payment-logos img:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+
+
+/* M-PESA Logo */
+.payment-logos img {
+  height: 140px; /* bigger logo */
+  width: auto;
+  margin-top: 20px;
+  transition: transform 0.3s;
+}
+
+.payment-logos img:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+}
+
+/* Right Panel */
+.right-panel {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+.payment-card {
+  width: 100%;
+  max-width: 900px;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  background: #f9fcff;
+  transition: all 0.3s;
+}
+
+.payment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.payment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.payment-header .profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.payment-header .title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #007a33;
+}
+
+.payment-header .subtitle {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Form Inputs Creative Style */
+#mpesa-payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 2px solid #00a859;
+  font-size: 15px;
+  outline: none;
+  background: linear-gradient(145deg, #f0f9f7, #e0f7f1);
+  transition: all 0.3s;
+}
+
+.input-row input:focus {
+  border-image: linear-gradient(90deg, #00c6ff, #0072ff) 1;
+  background: #e0f7f1;
+  box-shadow: 0 6px 15px rgba(0,122,51,0.2);
+}
+
+/* Phone Number Input */
+input[type="tel"] {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 2px solid #00a859;
+  font-size: 15px;
+  outline: none;
+  background: linear-gradient(145deg, #f0f9f7, #e0f7f1);
+  transition: all 0.3s;
+}
+
+input[type="tel"]:focus {
+  border-image: linear-gradient(90deg, #00c6ff, #0072ff) 1;
+  background: #e0f7f1;
+  box-shadow: 0 6px 15px rgba(0,122,51,0.2);
+}
+
+/* Amount Row */
+.amount-row {
+  display: flex;
+  gap: 12px;
+}
+
+.amount-row input, .amount-row select {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Pay Button */
+.pay-btn {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: #fff;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.pay-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+
+/* Help Text */
+.help-text {
+  font-size: 12px;
+  color: #777;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.help-text a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .payment-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .left-panel, .right-panel {
+    width: 100%;
+    padding: 25px;
+  }
+  .amount-row {
+    flex-direction: column;
+  }
+  .input-row {
+    flex-direction: column;
+  }
+}

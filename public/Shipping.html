@@ -9,8 +9,6 @@
 </head>
 <body>
 
-
-
   <!-- Navbar -->
   <div id="navbar-container"></div>
 
@@ -53,23 +51,13 @@
 
       <a href="#" class="back-link">‹ Return to information</a>
 
-      <button class="primary-btn">Select Payment Method</button>
-
-      <footer class="footer">Copyright © 2025,  AGsoft. All rights reserved.</footer>
+      <button class="primary-btn">PAY NOW</button>
 
     </div>
 
     <div class="right-section">
       <div class="product-summary">
-        <div class="item">
-          <img src="product.jpg" alt="product" />
-          <div class="details">
-            <p class="title"></p>
-            <p class="old-price"></p>
-            <p class="price"></p>
-          </div>
-          <p class="total"></p>
-        </div>
+        <!-- Items will be dynamically inserted here -->
       </div>
 
       <div class="promo">
@@ -105,92 +93,112 @@
 
   </div>
 
-  <!-- Scripts -->
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Load Navbar dynamically
-      fetch("Navbar.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("navbar-container").innerHTML = data;
-        })
-        .catch(err => console.error("Navbar load failed:", err));
+  document.addEventListener("DOMContentLoaded", () => {
+    // Load Navbar dynamically
+    fetch("Navbar.html")
+      .then(response => response.text())
+      .then(data => document.getElementById("navbar-container").innerHTML = data)
+      .catch(err => console.error("Navbar load failed:", err));
 
-      // Load shipping info
-      let shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
-      const contactInfoEl = document.getElementById("contact-info");
-      const addressInfoEl = document.getElementById("address-info");
+    // Load Footer dynamically
+    fetch("footer.html")
+      .then(res => res.text())
+      .then(html => {
+        const footer = document.getElementById("footer-container");
+        if (footer) footer.innerHTML = html;
+      })
+      .catch(err => console.error("Footer load failed:", err));
 
-      function renderShippingInfo() {
-        contactInfoEl.textContent = shippingInfo.email || "";
-        addressInfoEl.textContent =
-          `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
-      }
-      renderShippingInfo();
+    // Load shipping info
+    let shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+    const contactInfoEl = document.getElementById("contact-info");
+    const addressInfoEl = document.getElementById("address-info");
 
-      // Edit contact
-      document.getElementById("change-contact").addEventListener("click", (e) => {
-        e.preventDefault();
-        const input = document.createElement("input");
-        input.type = "email";
-        input.value = shippingInfo.email || "";
-        input.placeholder = "Email address";
-        contactInfoEl.replaceWith(input);
-        input.focus();
-        input.addEventListener("blur", () => {
-          shippingInfo.email = input.value;
-          localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
-          input.replaceWith(contactInfoEl);
-          renderShippingInfo();
-        });
+    function renderShippingInfo() {
+      contactInfoEl.textContent = shippingInfo.email || "";
+      addressInfoEl.textContent =
+        `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
+    }
+    renderShippingInfo();
+
+    // Edit contact
+    document.getElementById("change-contact").addEventListener("click", (e) => {
+      e.preventDefault();
+      const input = document.createElement("input");
+      input.type = "email";
+      input.value = shippingInfo.email || "";
+      input.placeholder = "Email address";
+      contactInfoEl.replaceWith(input);
+      input.focus();
+      input.addEventListener("blur", () => {
+        shippingInfo.email = input.value;
+        localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+        input.replaceWith(contactInfoEl);
+        renderShippingInfo();
       });
-
-      // Edit address
-      document.getElementById("change-address").addEventListener("click", (e) => {
-        e.preventDefault();
-        const textarea = document.createElement("textarea");
-        textarea.value = `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
-        addressInfoEl.replaceWith(textarea);
-        textarea.focus();
-        textarea.addEventListener("blur", () => {
-          const parts = textarea.value.split(",").map(p => p.trim());
-          shippingInfo.street = parts[0] || "";
-          shippingInfo.apartment = parts[1] || "";
-          shippingInfo.city = parts[2] || "";
-          shippingInfo.region = parts[3] || "";
-          shippingInfo.country = parts[4] || "";
-          localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
-          textarea.replaceWith(addressInfoEl);
-          renderShippingInfo();
-        });
-      });
-
-      // Load product info
-      const productData = JSON.parse(localStorage.getItem("checkoutProduct"));
-      if (productData) {
-        const productImg = document.querySelector(".product-summary .item img");
-        const productTitle = document.querySelector(".product-summary .item .title");
-        const productOld = document.querySelector(".product-summary .item .old-price");
-        const productPrice = document.querySelector(".product-summary .item .price");
-        const productTotal = document.querySelector(".product-summary .item .total");
-
-        productImg.src = productData.image;
-        productTitle.textContent = productData.title;
-        productOld.textContent = productData.oldPrice;
-        productPrice.textContent = productData.price;
-
-        const priceNumber = parseFloat(productData.price.replace(/[^\d.]/g, ""));
-        const quantity = parseInt(productData.quantity);
-        const subtotal = priceNumber * quantity;
-        const tax = subtotal * 0.14;
-        const total = subtotal + tax;
-
-        document.getElementById("subtotal").textContent = `KSh ${subtotal.toLocaleString()}`;
-        document.getElementById("tax-note").textContent = `(includes KSh ${tax.toLocaleString()} Tax)`;
-        productTotal.textContent = `KSh ${total.toLocaleString()}`;
-        document.getElementById("total").textContent = `KSh ${total.toLocaleString()}`;
-      }
     });
+
+    // Edit address
+    document.getElementById("change-address").addEventListener("click", (e) => {
+      e.preventDefault();
+      const textarea = document.createElement("textarea");
+      textarea.value = `${shippingInfo.street || ""}, ${shippingInfo.apartment || ""}, ${shippingInfo.city || ""}, ${shippingInfo.region || ""}, ${shippingInfo.country || ""}`;
+      addressInfoEl.replaceWith(textarea);
+      textarea.focus();
+      textarea.addEventListener("blur", () => {
+        const parts = textarea.value.split(",").map(p => p.trim());
+        shippingInfo.street = parts[0] || "";
+        shippingInfo.apartment = parts[1] || "";
+        shippingInfo.city = parts[2] || "";
+        shippingInfo.region = parts[3] || "";
+        shippingInfo.country = parts[4] || "";
+        localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+        textarea.replaceWith(addressInfoEl);
+        renderShippingInfo();
+      });
+    });
+
+    // Load all cart items
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const summaryContainer = document.querySelector(".product-summary");
+    summaryContainer.innerHTML = "";
+
+    let subtotal = 0;
+
+    cartItems.forEach(product => {
+      const priceNumber = parseFloat(product.price.replace(/[^\d.]/g, ""));
+      const quantity = parseInt(product.quantity) || 1;
+      const total = priceNumber * quantity;
+      subtotal += total;
+
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "item";
+      itemDiv.innerHTML = `
+        <img src="${product.image}" alt="${product.title}" />
+        <div class="details">
+          <p class="title">${product.title}</p>
+          <p class="old-price">${product.oldPrice || ""}</p>
+          <p class="price">${product.price} x ${quantity}</p>
+        </div>
+        <p class="total">KSh ${total.toLocaleString('en-US', {minimumFractionDigits:2})}</p>
+      `;
+      summaryContainer.appendChild(itemDiv);
+    });
+
+    // Update totals (subtotal = total, no taxes)
+    document.getElementById("subtotal").textContent = `KSh ${subtotal.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+    document.getElementById("total").textContent = `KSh ${subtotal.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+    document.getElementById("tax-note").textContent = `(includes KSh 0.00 Tax)`;
+    // Redirect to paymentmodule.html when PAY NOW is clicked
+document.querySelector(".primary-btn").addEventListener("click", () => {
+  window.location.href = "paymentmodule.html";
+});
+
+  });
   </script>
 
 </body>

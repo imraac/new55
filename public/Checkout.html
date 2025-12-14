@@ -9,10 +9,6 @@
 </head>
 <body>
 
-
-
-
-
   <!-- Navbar -->
   <div id="navbar-container"></div>
 
@@ -55,16 +51,14 @@
         <div class="cart-item">
           <img src="https://via.placeholder.com/80" alt="product">
           <div class="item-meta">
-            <div class="item-title">L'Oréal Paris Duo Serum<br><span class="muted">Revitalift Pack</span></div>
+            <div class="item-title">Product Name<br><span class="muted">SKU: 000000</span></div>
             <div class="prices">
-              <span class="strike">KSh 5,900.00</span>
-              <span class="price-small">KSh 3,540.00</span>
+              <span class="strike">KSh 0.00</span>
+              <span class="price-small">KSh 0.00</span>
             </div>
           </div>
-          <div class="item-total">KSh 7,080.00</div>
+          <div class="item-total">KSh 0.00</div>
         </div>
-
-       
 
         <div class="summary">
           <div class="summary-row"><span>Subtotal</span><span id="subtotal">KSh 0.00</span></div>
@@ -81,12 +75,10 @@
         </div>
       </aside>
     </div>
-
-   
   </div>
 
-  <script>
-      /* ========= FOOTER LOAD ========= */
+<script>
+   /* ========= FOOTER LOAD ========= */
   fetch("footer.html")
     .then(res => res.text())
     .then(html => {
@@ -95,66 +87,72 @@
     })
     .catch(err => console.error("Footer load error:", err));
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // Load Navbar dynamically
-      fetch("Navbar.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("navbar-container").innerHTML = data;
-        })
-        .catch(err => console.error("Navbar load failed:", err));
+document.addEventListener("DOMContentLoaded", () => {
+  // Load Navbar
+  fetch("Navbar.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("navbar-container").innerHTML = html)
+    .catch(err => console.error("Navbar load failed:", err));
 
-      // Load product info from localStorage
-      const productData = JSON.parse(localStorage.getItem("checkoutProduct"));
-      if (productData) {
-        const cartItem = document.querySelector(".cart-item img");
-        const itemTitle = document.querySelector(".item-title");
-        const itemPrices = document.querySelector(".prices .strike");
-        const itemPriceSmall = document.querySelector(".prices .price-small");
-        const itemTotal = document.querySelector(".item-total");
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartContainer = document.querySelector(".right-col");
+  const subtotalEl = document.getElementById("subtotal");
+  const totalEl = document.getElementById("total");
+  const taxNoteEl = document.getElementById("tax-note");
 
-        const subtotalEl = document.getElementById("subtotal");
-        const totalEl = document.getElementById("total");
-        const taxNote = document.getElementById("tax-note");
+  // Clear default cart-item
+  const defaultItem = cartContainer.querySelector(".cart-item");
+  if (defaultItem) defaultItem.remove();
 
-        cartItem.src = productData.image;
-        itemTitle.innerHTML = `${productData.title}<br><span class="muted">SKU: ${productData.sku}</span>`;
-        itemPrices.textContent = productData.oldPrice;
-        itemPriceSmall.textContent = productData.price;
+  let subtotal = 0;
 
-        const priceNumber = parseFloat(productData.price.replace(/[^\d.]/g, ""));
-        const quantity = parseInt(productData.quantity);
-        const subtotal = priceNumber * quantity;
-        const tax = subtotal * 0.14;
-        const total = subtotal + tax;
+  cartItems.forEach(product => {
+    const priceNumber = Number(product.price.replace(/[^0-9.-]+/g,""));
+    const quantity = Number(product.quantity);
+    const total = priceNumber * quantity;
+    subtotal += total;
 
-        subtotalEl.textContent = `KSh ${subtotal.toLocaleString()}`;
-        taxNote.textContent = `(includes KSh ${tax.toLocaleString()} Tax)`;
-        totalEl.textContent = `KSh ${total.toLocaleString()}`;
-        itemTotal.textContent = `KSh ${total.toLocaleString()}`;
-      }
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "cart-item";
+    itemDiv.innerHTML = `
+      <img src="${product.image}" alt="${product.title}">
+      <div class="item-meta">
+        <div class="item-title">${product.title}<br><span class="muted">SKU: ${product.sku}</span></div>
+        <div class="prices">
+          <span class="strike">${product.oldPrice}</span>
+          <span class="price-small">${product.price}</span>
+        </div>
+      </div>
+      <div class="item-total">KSh ${total.toLocaleString('en-US', {minimumFractionDigits:2})}</div>
+    `;
+    cartContainer.insertBefore(itemDiv, cartContainer.querySelector(".summary"));
+  });
 
-      // Save shipping info and redirect
-      const shippingBtn = document.querySelector(".btn-primary");
-      shippingBtn.addEventListener("click", () => {
-        const shippingInfo = {
-          email: document.querySelector('input[type="email"]').value,
-          firstName: document.querySelector('input[placeholder="First name"]').value,
-          lastName: document.querySelector('input[placeholder="Last name"]').value,
-          country: document.querySelectorAll('select.field')[0].value,
-          region: document.querySelectorAll('select.field')[1].value,
-          street: document.querySelector('input[placeholder="Street address"]').value,
-          apartment: document.querySelector('input[placeholder="Apartment, suite, unit, etc."]').value,
-          city: document.querySelector('input[placeholder="Town / City"]').value,
-          phone: document.querySelector('input[placeholder="Phone"]').value
-        };
-        localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
-        window.location.href = "Shipping.html";
-      });
-    });
-  </script>
+  // Update summary
+  subtotalEl.textContent = `KSh ${subtotal.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+  totalEl.textContent = `KSh ${subtotal.toLocaleString('en-US', {minimumFractionDigits:2})}`;
+  taxNoteEl.textContent = `(includes KSh 0.00 Tax)`; // No tax added
+
+  // Save shipping info and proceed
+  document.querySelector(".btn-primary").addEventListener("click", () => {
+    const shippingInfo = {
+      email: document.querySelector('input[type="email"]').value,
+      firstName: document.querySelector('input[placeholder="First name"]').value,
+      lastName: document.querySelector('input[placeholder="Last name"]').value,
+      country: document.querySelectorAll('select.field')[0].value,
+      region: document.querySelectorAll('select.field')[1].value,
+      street: document.querySelector('input[placeholder="Street address"]').value,
+      apartment: document.querySelector('input[placeholder="Apartment, suite, unit, etc."]').value,
+      city: document.querySelector('input[placeholder="Town / City"]').value,
+      phone: document.querySelector('input[placeholder="Phone"]').value
+    };
+    localStorage.setItem("shippingInfo", JSON.stringify(shippingInfo));
+    window.location.href = "Shipping.html";
+  });
+});
+</script>
+
 
 </body>
-<!-- FOOTER -->
 <div id="footer-container"></div>
 </html>

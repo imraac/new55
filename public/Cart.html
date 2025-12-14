@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cart</title>
   <link rel="stylesheet" href="Cart.css" />
-
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
   <style>
     /* ========= TOAST ========= */
     .toast {
@@ -90,19 +91,59 @@
       <!-- SHIPPING BOX -->
       <div class="shipping-box"></div>
 
-      <h2>Add your essentials</h2>
-      <div class="essentials">
-        <div class="card">
-          <img src="https://i.imgur.com/JzYQn8K.png" />
-          <span class="price-tag">5.97</span>
-          <button class="add-essential">+ Add</button>
-        </div>
-        <div class="card">
-          <img src="https://i.imgur.com/8JZJb6B.png" />
-          <span class="price-tag">4.97</span>
-          <button class="add-essential">+ Add</button>
-        </div>
-      </div>
+     <h2>Add Your Essentials</h2>
+<div class="essentials">
+  <div class="card">
+    <div class="card-img">
+      <img src="Assets/Gloves.jpg" alt="Gloves">
+    </div>
+    <div class="card-info">
+      <span class="price-tag">$5.97</span>
+      <button class="add-essential">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img">
+      <img src="Assets/watch3.webp" alt="Watch">
+    </div>
+    <div class="card-info">
+      <span class="price-tag">$4.97</span>
+      <button class="add-essential">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img">
+      <img src="Assets/watch3.webp" alt="Watch">
+    </div>
+    <div class="card-info">
+      <span class="price-tag">$4.97</span>
+      <button class="add-essential">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img">
+      <img src="Assets/watch3.webp" alt="Watch">
+    </div>
+    <div class="card-info">
+      <span class="price-tag">$4.97</span>
+      <button class="add-essential">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img">
+      <img src="Assets/watch3.webp" alt="Watch">
+    </div>
+    <div class="card-info">
+      <span class="price-tag">$4.97</span>
+      <button class="add-essential">+ Add</button>
+    </div>
+  </div>
+</div>
+
     </section>
   </main>
 
@@ -132,175 +173,173 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+    fetch('Navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-container').innerHTML = html;
+            initNavbarSidebar();
+        })
+        .catch(err => console.error('Error loading navbar:', err));
 
-  /* ========= FOOTER LOAD ========= */
-  fetch("footer.html")
-    .then(res => res.text())
-    .then(html => {
-      const footer = document.getElementById("footer-container");
-      if (footer) footer.innerHTML = html;
-    })
-    .catch(err => console.error("Footer load error:", err));
+const toast = document.getElementById("toast");
+const toastClose = toast.querySelector(".toast-close");
+let toastTimer;
 
-  /* ========= TOAST ========= */
-  const toast = document.getElementById("toast");
-  const toastClose = toast.querySelector(".toast-close");
-  let toastTimer;
+function showToast(message) {
+  toast.querySelector("span").textContent = "✔ " + message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+}
 
-  function showToast(message) {
-    toast.querySelector("span").textContent = "✔ " + message;
-    toast.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
-  }
+toastClose.onclick = () => toast.classList.remove("show");
 
-  toastClose.onclick = () => toast.classList.remove("show");
+// Load cart from localStorage
+function loadCart() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const shippingBox = document.querySelector(".shipping-box");
+  shippingBox.innerHTML = "";
 
-  /* ========= LOAD CART ========= */
-  function loadCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const shippingBox = document.querySelector(".shipping-box");
-    shippingBox.innerHTML = "";
+  let subtotal = 0;
+  let totalItems = 0;
 
-    let subtotal = 0;
-    let totalItems = 0;
+  cart.forEach(product => {
+    const price = parseFloat(product.price.replace(/[^\d.-]/g, "")) || 0;
+    const qty = parseInt(product.quantity);
+    const total = price * qty;
+    subtotal += total;
+    totalItems += qty;
 
-    cart.forEach(product => {
-      const price = parseFloat(product.price) || 0;
-      const qty = parseInt(product.quantity) || 1;
-      const total = price * qty;
-
-      subtotal += total;
-      totalItems += qty;
-
-      const item = document.createElement("div");
-      item.className = "item";
-      item.dataset.price = price;
-      item.innerHTML = `
-        <img src="${product.image}">
-        <div class="item-info">
-          <div class="price">$<span class="item-total">${total.toFixed(2)}</span> <span>$${price.toFixed(2)} ea</span></div>
-          <p>${product.title}</p>
-          <small>Free Holiday returns until Jan 31</small>
-          <div class="actions">
-            <button class="remove-btn">Remove</button>
-            <button class="save-btn">Save for later</button>
-            <div class="qty">
-              <button class="minus">-</button>
-              <span class="qty-value">${qty}</span>
-              <button class="plus">+</button>
-            </div>
+    const item = document.createElement("div");
+    item.className = "item";
+    item.dataset.price = price;
+    item.innerHTML = `
+      <img src="${product.image}">
+      <div class="item-info">
+        <div class="price">$<span class="item-total">${total.toFixed(2)}</span> <span>$${price.toFixed(2)} ea</span></div>
+        <p>${product.title}</p>
+        <small>Free Holiday returns until Jan 31</small>
+        <div class="actions">
+          <button class="remove-btn">Remove</button>
+          <button class="save-btn">Save for later</button>
+          <div class="qty">
+            <button class="minus">-</button>
+            <span class="qty-value">${qty}</span>
+            <button class="plus">+</button>
           </div>
-        </div>`;
-      shippingBox.appendChild(item);
-    });
-
-    updateSummary(subtotal, totalItems);
-  }
-
-  function updateSummary(subtotal, totalItems) {
-    document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById("total").textContent = `$${subtotal.toFixed(2)}`;
-    document.getElementById("item-count").textContent = totalItems;
-    document.getElementById("summary-count").textContent = totalItems;
-  }
-
-  function saveCart() {
-    const cart = [];
-    document.querySelectorAll(".item").forEach(item => {
-      cart.push({
-        title: item.querySelector("p").textContent,
-        image: item.querySelector("img").src,
-        price: item.dataset.price,
-        quantity: item.querySelector(".qty-value").textContent
-      });
-    });
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
-
-  function updateCartTotals() {
-    let subtotal = 0, totalItems = 0;
-
-    document.querySelectorAll(".item").forEach(item => {
-      const qty = +item.querySelector(".qty-value").textContent;
-      const price = +item.dataset.price;
-      item.querySelector(".item-total").textContent = (qty * price).toFixed(2);
-      subtotal += qty * price;
-      totalItems += qty;
-    });
-
-    updateSummary(subtotal, totalItems);
-    saveCart();
-  }
-
-  /* ========= EVENTS ========= */
-  document.addEventListener("click", e => {
-
-    if (e.target.classList.contains("plus")) {
-      e.target.previousElementSibling.textContent++;
-      updateCartTotals();
-    }
-
-    if (e.target.classList.contains("minus")) {
-      const qty = e.target.nextElementSibling;
-      if (+qty.textContent > 1) qty.textContent--;
-      updateCartTotals();
-    }
-
-    if (e.target.classList.contains("remove-btn")) {
-      e.target.closest(".item").remove();
-      updateCartTotals();
-      showToast("Product removed");
-    }
-
-    if (e.target.classList.contains("save-btn")) {
-      e.target.closest(".item").remove();
-      updateCartTotals();
-      showToast("Saved for later");
-    }
-
-    if (e.target.classList.contains("add-essential")) {
-      const card = e.target.closest(".card");
-      const price = +card.querySelector(".price-tag").textContent;
-      const img = card.querySelector("img").src;
-
-      const item = document.createElement("div");
-      item.className = "item";
-      item.dataset.price = price;
-      item.innerHTML = `
-        <img src="${img}">
-        <div class="item-info">
-          <div class="price">$<span class="item-total">${price.toFixed(2)}</span> <span>$${price.toFixed(2)} ea</span></div>
-          <p>Essential Item</p>
-          <div class="actions">
-            <button class="remove-btn">Remove</button>
-            <button class="save-btn">Save for later</button>
-            <div class="qty">
-              <button class="minus">-</button>
-              <span class="qty-value">1</span>
-              <button class="plus">+</button>
-            </div>
-          </div>
-        </div>`;
-      document.querySelector(".shipping-box").appendChild(item);
-      updateCartTotals();
-      showToast("Product added successfully");
-    }
-
-    if (e.target.closest(".toggle-delivery")) {
-      const options = document.querySelector(".delivery-options");
-      options.classList.toggle("open");
-      document.querySelector(".arrow").textContent =
-        options.classList.contains("open") ? "▴" : "▾";
-    }
+        </div>
+      </div>`;
+    shippingBox.appendChild(item);
   });
 
-  loadCart();
+  updateSummary(subtotal, totalItems);
+}
+
+// Update subtotal, total and item counts
+function updateSummary(subtotal, totalItems) {
+  document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById("total").textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById("item-count").textContent = totalItems;
+  document.getElementById("summary-count").textContent = totalItems;
+}
+
+// Save current cart to localStorage
+function saveCart() {
+  const cart = [];
+  document.querySelectorAll(".item").forEach(item => {
+    const title = item.querySelector("p").textContent;
+    const image = item.querySelector("img").src;
+    const price = item.dataset.price;
+    const qty = parseInt(item.querySelector(".qty-value").textContent);
+    cart.push({ title, image, price, quantity: qty });
+  });
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// Update totals whenever items change
+function updateCartTotals() {
+  let subtotal = 0, totalItems = 0;
+  document.querySelectorAll(".item").forEach(item => {
+    const qty = parseInt(item.querySelector(".qty-value").textContent);
+    const price = parseFloat(item.dataset.price);
+    item.querySelector(".item-total").textContent = (qty * price).toFixed(2);
+    subtotal += qty * price;
+    totalItems += qty;
+  });
+  updateSummary(subtotal, totalItems);
+  saveCart();
+}
+
+// Event delegation
+document.addEventListener("click", e => {
+  if (e.target.classList.contains("plus")) {
+    e.target.previousElementSibling.textContent++;
+    updateCartTotals();
+  }
+
+  if (e.target.classList.contains("minus")) {
+    const qty = e.target.nextElementSibling;
+    if (+qty.textContent > 1) qty.textContent--;
+    updateCartTotals();
+  }
+
+  if (e.target.classList.contains("remove-btn")) {
+    e.target.closest(".item").remove();
+    updateCartTotals();
+    showToast("Product removed");
+  }
+
+  if (e.target.classList.contains("save-btn")) {
+    e.target.closest(".item").remove();
+    updateCartTotals();
+    showToast("Saved for later");
+  }
+
+  if (e.target.classList.contains("add-essential")) {
+    const card = e.target.closest(".card");
+    const price = parseFloat(card.querySelector(".price-tag").textContent);
+    const img = card.querySelector("img").src;
+
+    const item = document.createElement("div");
+    item.className = "item";
+    item.dataset.price = price;
+    item.innerHTML = `
+      <img src="${img}">
+      <div class="item-info">
+        <div class="price">$<span class="item-total">${price.toFixed(2)}</span> <span>$${price.toFixed(2)} ea</span></div>
+        <p>Essential Item</p>
+        <div class="actions">
+          <button class="remove-btn">Remove</button>
+          <button class="save-btn">Save for later</button>
+          <div class="qty">
+            <button class="minus">-</button>
+            <span class="qty-value">1</span>
+            <button class="plus">+</button>
+          </div>
+        </div>
+      </div>`;
+    document.querySelector(".shipping-box").appendChild(item);
+    updateCartTotals();
+    showToast("Product added successfully");
+  }
+
+  if (e.target.closest(".toggle-delivery")) {
+    const options = document.querySelector(".delivery-options");
+    options.classList.toggle("open");
+    document.querySelector(".arrow").textContent =
+      options.classList.contains("open") ? "▴" : "▾";
+  }
+   fetch("footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-container").innerHTML = data;
+    })
+    .catch(err => console.error("Footer load error:", err));
 });
+
+// Initial load
+loadCart();
 </script>
-
-
 
 </body>
 <!-- FOOTER -->

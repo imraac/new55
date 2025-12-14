@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M-PESA Payment</title>
+  <link rel="stylesheet" href="paymentmodule.css">
+</head>
+<body>
+  <div class="payment-container">
+
+    <!-- Left Section -->
+    <div class="left-panel">
+
+      <div class="payment-logos">
+  
+        <img src="Assets/M-PESA_LOGO-01.svg.png" alt="M-PESA">
+      
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-panel">
+      <div class="payment-card">
+        <div class="payment-header">
+       
+          <div>
+            <p class="title">PAY VIA M-PESA</p>
+            <p class="subtitle">M-PESA Payment Page</p>
+          </div>
+        </div>
+
+        <form id="mpesa-payment-form">
+          <div class="input-row">
+            <input type="text" placeholder="First name" required>
+            <input type="text" placeholder="Last name" required>
+          </div>
+        
+          <input type="tel" placeholder="Phone Number (M-PESA)" required>
+
+          <div class="amount-row">
+            <select>
+              <option>KES</option>
+            </select>
+            <input type="number" placeholder="Amount" min="1" required>
+          </div>
+
+          <button type="submit" class="pay-btn">PAY VIA M-PESA</button>
+        </form>
+
+        <p class="help-text">If you have any questions, contact <a href="mailto:felix@intasend.com">agsoft.com</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('mpesa-payment-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('M-PESA payment request initiated! Follow the instructions on your phone.');
+      // Here you can integrate actual M-PESA API calls
+    });
+  </script>
+</body>
+</html>

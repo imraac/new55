@@ -70,6 +70,46 @@
     .cart-item span {
       margin-right: 5px;
     }
+
+    /* Gallery */
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      justify-content: start;
+      margin-bottom: 10px;
+    }
+
+    .thumb {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 2px;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .thumb img {
+      display: block;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+
+    .main-image-wrap {
+      text-align: center;
+    }
+
+    .main-image {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      object-fit: contain;
+    }
   </style>
 </head>
 
@@ -234,7 +274,7 @@
 
   <!-- Scripts -->
   <script>
-      /* ========= FOOTER LOAD ========= */
+  /* ========= FOOTER LOAD ========= */
   fetch("footer.html")
     .then(res => res.text())
     .then(html => {
@@ -266,10 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("sku").textContent = product.sku;
   document.getElementById("desc").textContent = product.desc;
 
-  // Populate gallery
+  // Populate gallery (up to 3 thumbnails)
   const thumbsContainer = document.getElementById("thumbs");
   thumbsContainer.innerHTML = '';
-  product.gallery.forEach(src => {
+  product.gallery.slice(0,3).forEach(src => {
     const btn = document.createElement("button");
     btn.className = "thumb";
     const img = document.createElement("img");
