@@ -5,20 +5,85 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Uncover On The Go Kit (Minis)</title>
   <link rel="stylesheet" href="Productcart.css">
-  <link rel="stylesheet" href="Navbar.css"> <!-- Navbar styles here -->
+  <link rel="stylesheet" href="Navbar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #6fbf2e;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      min-width: 250px;
+      max-width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: bottom 0.35s ease, opacity 0.35s ease;
+      z-index: 9999;
+    }
+    .toast.show {
+      bottom: 25px;
+      opacity: 1;
+    }
+    .toast-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* Simple Cart Items Display */
+    #cart-items {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 250px;
+      max-height: 400px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .cart-item img {
+      margin-right: 10px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+    .cart-item span {
+      margin-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
 
+  <!-- Promo Banner -->
   <div class="promo-banner">
-   <div class="promo-left">
-  <div class="image-wrapper">
-    <img src="Assets/time-removebg-preview.png" alt="Promo 1">
-    <img src="Assets/blackfriday.jpg" alt="Promo 2">
-    <img src="Assets/extra-removebg-preview.png" alt="Promo 3">
-  </div>
-</div>
- 
+    <div class="promo-left">
+      <div class="image-wrapper">
+        <img src="Assets/time-removebg-preview.png" alt="Promo 1">
+        <img src="Assets/blackfriday.jpg" alt="Promo 2">
+        <img src="Assets/extra-removebg-preview.png" alt="Promo 3">
+      </div>
+    </div>
     <div class="promo-right">
       <div class="promo-text-wrapper">
         <span>EXTENDED FOR YOU! 🎉</span>
@@ -29,23 +94,21 @@
     </div>
   </div>
 
-  </div>
-    <!-- Top Bar + Promo + Navbar -->
+  <!-- Top Bar -->
   <div class="top-bar">
     <div class="sell-jumia"><span>Sell on Jumia</span> | Start Now</div>
   </div>
 
-<nav class="navbar">
+  <!-- Navbar -->
+  <nav class="navbar">
     <div class="navbar-left">
       <div class="menu-icon">&#9776;</div>
       <div class="logo">NAME <span class="star">⭐</span></div>
     </div>
-
     <div class="navbar-center">
       <input type="text" placeholder="Search products, brands and categories">
       <button class="search-btn">Search</button>
     </div>
-
     <div class="navbar-right">
       <div class="account">Account ▼</div>
       <div class="help">Help ▼</div>
@@ -56,46 +119,25 @@
   <!-- Main Product Page -->
   <main class="page">
     <div class="product-grid">
-      <aside class="gallery">
-        <div class="thumbs">
-          <button class="thumb">
-            <img src="https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/26/1967523/1.jpg?2572" alt="thumb">
-          </button>
-          <button class="thumb">
-            <img src="https://www.apple.com/v/iphone/home/cg/images/meta/iphone__cud4q04omsuq_og.png" alt="thumb">
-          </button>
-          <button class="thumb">
-            <img src="https://www.apple.com/v/iphone/home/cg/images/meta/iphone__cud4q04omsuq_og.png" alt="thumb">
-          </button>
-        </div>
 
+      <!-- Gallery / Thumbnails -->
+      <aside class="gallery">
+        <div class="thumbs" id="thumbs"></div>
         <div class="main-image-wrap">
-          <div class="badge-circle">-25%</div>
-          <div class="badge-rect">BEST<br>SELLER</div>
-          <img class="main-image" src="https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/26/1967523/1.jpg?2572" alt="Uncover On The Go Kit">
-          <button class="expand" aria-label="expand">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M15 3h6v6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 21H3v-6" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M21 3l-8 8" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M3 21l8-8" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+          <img class="main-image" id="main-image" src="" alt="Product">
         </div>
       </aside>
 
+      <!-- Product Details -->
       <section class="details">
-        <div class="sku">SKU: <strong>334167</strong></div>
-        <h1 class="title">Uncover On the Go Kit (Minis)</h1>
-        <p class="desc">
-          The <strong>Uncover On The Go Kit</strong> is a compact, <strong>3-step</strong> skincare routine featuring
-          a Green Tea Cleanser, Argan Moisturiser, and Invisible SPF 50+ Sunscreen. Designed for travel, gym and quick touch-ups.
-        </p>
+        <div class="sku">SKU: <strong id="sku"></strong></div>
+        <h1 class="title" id="title"></h1>
+        <p class="desc" id="desc"></p>
 
         <div class="price-row">
-          <span class="old-price">KSh 3,550.00</span>
-          <span class="new-price">KSh 2,663.00</span>
-          <span class="stock">✓ 99 in stock</span>
+          <span class="old-price" id="old-price"></span>
+          <span class="new-price" id="new-price"></span>
+          <span class="stock" id="stock">✓ 99 in stock</span>
         </div>
 
         <div class="countdown-block">
@@ -114,18 +156,20 @@
 
         <div class="progress"><span style="width:12%"></span></div>
 
+        <!-- Quantity and Buttons -->
         <div class="controls">
           <div class="qty">
-            <button class="qty-btn">-</button>
-            <input class="qty-input" value="1" readonly>
-            <button class="qty-btn">+</button>
+            <button class="qty-btn" id="minus">-</button>
+            <input class="qty-input" id="qty-input" value="1" readonly>
+            <button class="qty-btn" id="plus">+</button>
           </div>
           <div class="ctas">
-            <button class="btn add-cart">ADD TO CART</button>
-            <button class="btn buy-now">BUY NOW</button>
+            <button class="btn add-cart" id="add-cart">ADD TO CART</button>
+            <button class="btn buy-now" id="buy-now">BUY NOW</button>
           </div>
         </div>
 
+        <!-- Meta Row -->
         <div class="meta-row">
           <div class="meta-item">⤢ Add to compare</div>
           <div class="meta-item">♡ Add to wishlist</div>
@@ -136,6 +180,7 @@
           </div>
         </div>
 
+        <!-- Delivery Info -->
         <div class="info-cards combined">
           <div class="card combined-delivery">
             <div class="delivery-option">
@@ -143,9 +188,7 @@
                 <img src="Assets/tomorrow.png" alt="Same Day Icon" class="card-icon">
                 <div>
                   <div class="card-title">Same Day Delivery</div>
-                  <div class="card-text">
-                    Free Delivery same day for all orders placed before 9am within Nairobi.
-                  </div>
+                  <div class="card-text">Free Delivery same day for all orders placed before 9am within Nairobi.</div>
                 </div>
               </div>
               <div class="card-right">500 KES</div>
@@ -163,6 +206,7 @@
           </div>
         </div>
 
+        <!-- Notices -->
         <div class="notice">
           <div class="notice-left">
             <div class="notice-title">⚑ Payment on Delivery is Available!</div>
@@ -174,35 +218,142 @@
     </div>
   </main>
 
+  <!-- Image Viewer Modal -->
   <div id="image-viewer" class="viewer hidden">
     <img id="viewer-img" src="" alt="zoomed image">
   </div>
 
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <span>✔ Product added to cart</span>
+    <button class="toast-close">&times;</button>
+  </div>
+
+  <!-- Cart Items (Live Update) -->
+  <div id="cart-items"></div>
+
+  <!-- Scripts -->
   <script>
+      /* ========= FOOTER LOAD ========= */
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => {
+      const footer = document.getElementById("footer-container");
+      if (footer) footer.innerHTML = html;
+    })
+    .catch(err => console.error("Footer load error:", err));
+
 document.addEventListener("DOMContentLoaded", () => {
-  const buyNowBtn = document.querySelector(".buy-now");
-  const qtyInput = document.querySelector(".qty-input");
+  // Load product
+  const product = JSON.parse(localStorage.getItem("selectedProduct")) || {
+    title: "Default Product",
+    price: "KSh 0",
+    oldPrice: "KSh 0",
+    quantity: 1,
+    image: "Assets/default.png",
+    sku: "000000",
+    desc: "Product description not available.",
+    gallery: ["Assets/default.png"]
+  };
 
-  buyNowBtn.addEventListener("click", () => {
-    // Collect product details
-    const product = {
-      title: document.querySelector(".title").textContent,
-      price: document.querySelector(".new-price").textContent,
-      oldPrice: document.querySelector(".old-price").textContent,
-      quantity: qtyInput.value,
-      image: document.querySelector(".main-image").src,
-      sku: document.querySelector(".sku strong").textContent
-    };
+  product.gallery = Array.isArray(product.gallery) && product.gallery.length ? product.gallery : [product.image];
 
-    // Store in localStorage
-    localStorage.setItem("checkoutProduct", JSON.stringify(product));
+  // Update DOM elements
+  document.getElementById("main-image").src = product.image;
+  document.getElementById("title").textContent = product.title;
+  document.getElementById("new-price").textContent = product.price;
+  document.getElementById("old-price").textContent = product.oldPrice || product.price;
+  document.getElementById("sku").textContent = product.sku;
+  document.getElementById("desc").textContent = product.desc;
 
-    // Redirect to checkout page
+  // Populate gallery
+  const thumbsContainer = document.getElementById("thumbs");
+  thumbsContainer.innerHTML = '';
+  product.gallery.forEach(src => {
+    const btn = document.createElement("button");
+    btn.className = "thumb";
+    const img = document.createElement("img");
+    img.src = src;
+    btn.appendChild(img);
+    btn.addEventListener("click", () => document.getElementById("main-image").src = src);
+    thumbsContainer.appendChild(btn);
+  });
+
+  // Quantity controls
+  const qtyInput = document.getElementById("qty-input");
+  document.getElementById("plus").addEventListener("click", () => qtyInput.value = parseInt(qtyInput.value) + 1);
+  document.getElementById("minus").addEventListener("click", () => {
+    if (qtyInput.value > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
+  });
+
+  // Toast
+  const toast = document.getElementById("toast");
+  const toastClose = toast.querySelector(".toast-close");
+  let toastTimer;
+  function showToast(message) {
+    toast.querySelector("span").textContent = "✔ " + message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+  toastClose.onclick = () => toast.classList.remove("show");
+
+  // Live cart update function
+  function updateCartUI() {
+    const cartItemsContainer = document.getElementById("cart-items");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cartItemsContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      return;
+    }
+
+    cart.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <img src="${item.image}" width="50" height="50">
+        <span>${item.title}</span>
+        <span>${item.quantity} x ${item.price}</span>
+      `;
+      cartItemsContainer.appendChild(div);
+    });
+  }
+
+  // Initial cart display
+  updateCartUI();
+
+  // Buy now
+  document.getElementById("buy-now").addEventListener("click", () => {
+    const checkoutProduct = { ...product, quantity: parseInt(qtyInput.value) };
+    localStorage.setItem("checkoutProduct", JSON.stringify(checkoutProduct));
     window.location.href = "Checkout.html";
   });
-});
-</script>
 
+  // Add to cart
+  document.getElementById("add-cart").addEventListener("click", () => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingIndex = cart.findIndex(p => p.sku === product.sku);
+    if (existingIndex >= 0) {
+      cart[existingIndex].quantity = parseInt(cart[existingIndex].quantity) + parseInt(qtyInput.value);
+    } else {
+      cart.push({ ...product, quantity: parseInt(qtyInput.value) });
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    showToast("Product added to cart");
+    updateCartUI(); // <-- Update cart immediately
+  });
+
+  // Make the cart clickable to go to Cart.html
+  document.getElementById("cart-items").addEventListener("click", () => {
+    window.location.href = "Cart.html";
+  });
+
+});
+  </script>
 
 </body>
+<!-- FOOTER -->
+<div id="footer-container"></div>
 </html>

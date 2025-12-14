@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>footer</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.footer {
+  background: #f2f2f2;
+  color: #666;
+  font-size: 13px;
+}
+
+/* ===== TOP ICON BAR ===== */
+.footer-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.footer-top img {
+  height: 22px;
+}
+
+/* ===== MAIN FOOTER CONTENT ===== */
+.footer-content {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.footer h4 {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.footer ul {
+  list-style: none;
+}
+
+.footer ul li {
+  margin-bottom: 8px;
+}
+
+.footer ul li a {
+  text-decoration: none;
+  color: #666;
+}
+
+.footer ul li a:hover {
+  text-decoration: underline;
+}
+
+/* ===== COUNTRY SELECT ===== */
+.country {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.country img {
+  height: 14px;
+}
+
+/* ===== BOTTOM BAR ===== */
+.footer-bottom {
+  background: #dd6808 ;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.footer-bottom a {
+  color: #faf7f7;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<footer class="footer">
+
+  <!-- TOP ICONS -->
+  <div class="footer-top">
+    <img src="Assets/Facebook_f_logo_(2019).svg">
+    <img src="Assets/Instagram_icon.png">
+   
+    <span>|</span>
+    <img src="Assets/Visa_Logo.png">
+    <img src="Assets/Mastercard-logo.png">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+    <img src="Assets/M-PESA_LOGO-01.svg.png">
+   
+    
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="footer-content">
+
+    <div>
+      <h4>HELP & INFORMATION</h4>
+      <ul>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Track order</a></li>
+        <li><a href="#">Delivery & returns</a></li>
+        <li><a href="#">Premier Delivery</a></li>
+        <li><a href="#">10% Student Discount</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>ABOUT ASOS</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers at ASOS</a></li>
+        <li><a href="#">Corporate Responsibility</a></li>
+        <li><a href="#">Investors' Site</a></li>
+        <li><a href="#">Cyber Security</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>MORE FROM ASOS</h4>
+      <ul>
+        <li><a href="#">Mobile and ASOS Apps</a></li>
+        <li><a href="#">ASOS Marketplace</a></li>
+        <li><a href="#">Gift vouchers</a></li>
+        <li><a href="#">Black Friday</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>SHOPPING FROM:</h4>
+      <div class="country">
+        <span>You're in</span>
+        <img src="Assets/kenyaflag.png">
+        <a href="#">CHANGE</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <span>© 2025 ASOS</span>
+    <div>
+      <a href="#">Privacy & Cookies</a>
+      <a href="#">Ts&Cs</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+
+</footer>
+
+</body>
+</html>

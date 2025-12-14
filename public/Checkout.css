@@ -1,3 +1,7 @@
+/* ========================= */
+/* EXISTING DESKTOP CSS REMAINS */
+/* ========================= */
+
 /* Font & base */
 :root{
   --muted:#8b8b8b;
@@ -126,7 +130,7 @@ body{
 
 /* promo input + button */
 .promo{ display:flex; gap:12px; align-items:center; margin-bottom:18px }
-.promo-field{ padding:12px; background:#fff; border:1px solid var(--border) }
+.promo-field{ padding:12px; background:#fff; border:1px solid var(--border); width:100%; }
 .btn-apply{
   padding:12px 20px;
   border-radius:6px;
@@ -182,4 +186,52 @@ body{
   color:var(--muted);
   font-size:13px;
   padding-top:18px;
+}
+
+/* ========================= */
+/* RESPONSIVE FIX FOR SMALL SCREENS */
+/* ========================= */
+@media (max-width: 768px) {
+  .page {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 19px; /* small padding for breathing room */
+  }
+
+  .checkout {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .left-col, .right-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 0;
+    border-left: none;
+  }
+
+  /* Stack two-column rows */
+  .two {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .two .field,
+  .field,
+  .promo-field,
+  select {
+    width: 100%;
+    font-size: 24px; /* readable on small screens */
+  }
+
+  .btn-primary,
+  .btn-apply {
+    width: 100%;
+    max-width: none;
+  }
+
+  .secure {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

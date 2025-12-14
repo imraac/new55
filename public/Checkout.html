@@ -64,10 +64,7 @@
           <div class="item-total">KSh 7,080.00</div>
         </div>
 
-        <div class="promo">
-          <input class="field promo-field" type="text" placeholder="Enter Promo Code">
-          <button class="btn-apply" disabled>Apply</button>
-        </div>
+       
 
         <div class="summary">
           <div class="summary-row"><span>Subtotal</span><span id="subtotal">KSh 0.00</span></div>
@@ -85,10 +82,19 @@
       </aside>
     </div>
 
-    <footer class="site-footer">Copyright © 2025, AGsoft. All rights reserved.</footer>
+   
   </div>
 
   <script>
+      /* ========= FOOTER LOAD ========= */
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => {
+      const footer = document.getElementById("footer-container");
+      if (footer) footer.innerHTML = html;
+    })
+    .catch(err => console.error("Footer load error:", err));
+
     document.addEventListener("DOMContentLoaded", () => {
       // Load Navbar dynamically
       fetch("Navbar.html")
@@ -149,4 +155,6 @@
   </script>
 
 </body>
+<!-- FOOTER -->
+<div id="footer-container"></div>
 </html>
