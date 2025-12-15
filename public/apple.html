@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Products Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="apple.css">
+</head>
+<body>
+<div class="pl-page-wrapper">
+
+  <!-- Video Section -->
+  <div class="video-container">
+    <video autoplay muted loop class="promo-video">
+      <source src="Assets/watchedio.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+  </div>
+
+  <header class="pl-top-header">
+    <div class="pl-header-left">
+      <button class="pl-filter-toggle" id="pl-burger-btn">▼</button>
+      <p class="pl-result-text">Showing all 10 results</p>
+    </div>
+    <div class="pl-header-right"><span class="pl-latest">Latest ▼</span></div>
+  </header>
+
+  <div class="pl-overlay" id="pl-overlay"></div>
+
+  <div class="pl-layout">
+    <!-- Sidebar -->
+    <aside class="pl-sidebar">
+      <button class="pl-close-sidebar"></button>
+      <h3 class="pl-sidebar-title">PRICE</h3>
+      <div class="pl-price-box">
+        <input type="range" class="pl-range-slider" min="0" max="100" value="0" data-min="43000" data-max="295000">
+        <p class="pl-price-label">Price: KSh 43,000</p>
+        <button class="pl-filter-btn">Filter</button>
+      </div>
+      <hr class="pl-line">
+    </aside>
+
+    <!-- Main Products Grid -->
+    <main class="pl-products-grid">
+      <div class="pl-product-card">
+        <span class="pl-badge pl-new">NEW</span>
+        <div class="pl-img-box">
+          <img src="Assets/iphone-15-pro.jpg" class="pl-product-img">
+        </div>
+        <p class="pl-category">iPhone</p>
+        <p class="pl-subcat">Smartphones</p>
+        <p class="pl-product-name">iPhone 15 Pro</p>
+        <p class="pl-product-price">KSh 350,000</p>
+      </div>
+
+      <div class="pl-product-card">
+        <span class="pl-badge pl-sale">SALE</span>
+        <div class="pl-img-box">
+          <img src="Assets/iphone-14.jpg" class="pl-product-img">
+        </div>
+        <p class="pl-category">iPhone</p>
+        <p class="pl-product-name">iPhone 14</p>
+        <p class="pl-product-price">KSh 250,000</p>
+      </div>
+
+      <div class="pl-product-card">
+        <span class="pl-badge pl-hot">HOT</span>
+        <div class="pl-img-box">
+          <img src="Assets/macbook-air.jpg" class="pl-product-img">
+        </div>
+        <p class="pl-category">MacBook</p>
+        <p class="pl-product-name">MacBook Air M2</p>
+        <p class="pl-product-price">KSh 320,000</p>
+      </div>
+
+      <div class="pl-product-card">
+        <div class="pl-img-box">
+          <img src="Assets/macbook-pro.jpg" class="pl-product-img">
+        </div>
+        <p class="pl-category">MacBook</p>
+        <p class="pl-product-name">MacBook Pro 16"</p>
+        <p class="pl-product-price">KSh 450,000</p>
+      </div>
+
+      <div class="pl-product-card">
+        <div class="pl-img-box">
+          <img src="Assets/apple-watch.jpg" class="pl-product-img">
+        </div>
+        <p class="pl-category">Apple Watch</p>
+        <p class="pl-product-name">Apple Watch Series 9</p>
+        <p class="pl-product-price">KSh 85,000</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// Sidebar toggle
+const burgerBtn = document.getElementById('pl-burger-btn');
+const sidebar = document.querySelector('.pl-sidebar');
+const overlay = document.getElementById('pl-overlay');
+burgerBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+});
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+// Price slider
+const slider = document.querySelector('.pl-range-slider');
+const priceLabel = document.querySelector('.pl-price-label');
+const filterBtn = document.querySelector('.pl-filter-btn');
+const products = document.querySelectorAll('.pl-product-card');
+const minPrice = parseInt(slider.dataset.min);
+const maxPrice = parseInt(slider.dataset.max);
+
+slider.addEventListener('input', () => {
+  const value = Math.round(minPrice + ((maxPrice - minPrice) * (slider.value / 100)));
+  priceLabel.textContent = `Price: KSh ${value.toLocaleString()}`;
+});
+slider.dispatchEvent(new Event('input'));
+
+function parsePrice(priceText) {
+  const range = priceText.replace(/[KSh,\s]/g, '').split('–');
+  return range.map(p => parseInt(p.trim()));
+}
+
+filterBtn.addEventListener('click', () => {
+  const selectedPrice = Math.round(minPrice + ((maxPrice - minPrice) * (slider.value / 100)));
+  const tolerance = selectedPrice * 0.1;
+  products.forEach(product => {
+    const priceText = product.querySelector('.pl-product-price').textContent;
+    const [productMin, productMax] = parsePrice(priceText).length === 2 ? parsePrice(priceText) : [parsePrice(priceText)[0], parsePrice(priceText)[0]];
+    product.style.display = (selectedPrice >= productMin - tolerance && selectedPrice <= productMax + tolerance) ? 'block' : 'none';
+  });
+});
+
+const closeBtn = document.querySelector('.pl-close-sidebar');
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('active');
+  overlay.classList.remove('active');
+});
+</script>
+</body>
+</html>
