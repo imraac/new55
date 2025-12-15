@@ -11,11 +11,8 @@
 
     <!-- Left Section -->
     <div class="left-panel">
-
       <div class="payment-logos">
-  
         <img src="Assets/M-PESA_LOGO-01.svg.png" alt="M-PESA">
-      
       </div>
     </div>
 
@@ -23,7 +20,6 @@
     <div class="right-panel">
       <div class="payment-card">
         <div class="payment-header">
-       
           <div>
             <p class="title">PAY VIA M-PESA</p>
             <p class="subtitle">M-PESA Payment Page</p>
@@ -54,12 +50,41 @@
 
   </div>
 
-  <script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Get saved shipping info
+    const shippingInfo = JSON.parse(localStorage.getItem("shippingInfo")) || {};
+
+    // Get the form fields
+    const firstNameInput = document.querySelector('#mpesa-payment-form input[placeholder="First name"]');
+    const lastNameInput = document.querySelector('#mpesa-payment-form input[placeholder="Last name"]');
+    const phoneInput = document.querySelector('#mpesa-payment-form input[placeholder="Phone Number (M-PESA)"]');
+    const amountInput = document.querySelector('#mpesa-payment-form input[placeholder="Amount"]');
+
+    // Auto-fill the fields if available
+    if(shippingInfo.firstName) firstNameInput.value = shippingInfo.firstName;
+    if(shippingInfo.lastName) lastNameInput.value = shippingInfo.lastName;
+    if(shippingInfo.phone) phoneInput.value = shippingInfo.phone;
+    if(shippingInfo.orderTotal) amountInput.value = Math.round(shippingInfo.orderTotal); // Round off
+
+    // Submit event
     document.getElementById('mpesa-payment-form').addEventListener('submit', function(e){
       e.preventDefault();
-      alert('M-PESA payment request initiated! Follow the instructions on your phone.');
-      // Here you can integrate actual M-PESA API calls
+
+      // Collect values
+      const paymentData = {
+        firstName: firstNameInput.value,
+        lastName: lastNameInput.value,
+        phone: phoneInput.value,
+        amount: amountInput.value
+      };
+
+      // You can save to localStorage or send to API
+      console.log("Payment Data:", paymentData);
+      alert(`M-PESA payment of KES ${paymentData.amount} initiated for ${paymentData.firstName} ${paymentData.lastName}. Enter M-pesa Pin.`);
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>

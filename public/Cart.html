@@ -148,7 +148,8 @@
   </main>
 
   <aside class="summary">
-    <button class="checkout">Continue to checkout</button>
+   <button class="checkout" onclick="window.location.href='Checkout.html'">Continue to checkout</button>
+
     <div class="box">
       <div class="row">
         <span>Subtotal (<span id="summary-count">0</span> items)</span>
@@ -173,6 +174,7 @@
 </div>
 
 <script>
+    // Load navbar
     fetch('Navbar.html')
         .then(res => res.text())
         .then(html => {
@@ -204,8 +206,10 @@ function loadCart() {
   let totalItems = 0;
 
   cart.forEach(product => {
-    const price = parseFloat(product.price.replace(/[^\d.-]/g, "")) || 0;
-    const qty = parseInt(product.quantity);
+    const price = typeof product.price === "string" 
+                  ? parseFloat(product.price.replace(/[^\d.-]/g, "")) || 0
+                  : Number(product.price) || 0;
+    const qty = parseInt(product.quantity) || 0;
     const total = price * qty;
     subtotal += total;
     totalItems += qty;
@@ -249,8 +253,8 @@ function saveCart() {
   document.querySelectorAll(".item").forEach(item => {
     const title = item.querySelector("p").textContent;
     const image = item.querySelector("img").src;
-    const price = item.dataset.price;
-    const qty = parseInt(item.querySelector(".qty-value").textContent);
+    const price = Number(item.dataset.price) || 0;
+    const qty = parseInt(item.querySelector(".qty-value").textContent) || 0;
     cart.push({ title, image, price, quantity: qty });
   });
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -260,8 +264,8 @@ function saveCart() {
 function updateCartTotals() {
   let subtotal = 0, totalItems = 0;
   document.querySelectorAll(".item").forEach(item => {
-    const qty = parseInt(item.querySelector(".qty-value").textContent);
-    const price = parseFloat(item.dataset.price);
+    const qty = parseInt(item.querySelector(".qty-value").textContent) || 0;
+    const price = Number(item.dataset.price) || 0;
     item.querySelector(".item-total").textContent = (qty * price).toFixed(2);
     subtotal += qty * price;
     totalItems += qty;
@@ -297,7 +301,9 @@ document.addEventListener("click", e => {
 
   if (e.target.classList.contains("add-essential")) {
     const card = e.target.closest(".card");
-    const price = parseFloat(card.querySelector(".price-tag").textContent);
+    const price = typeof card.querySelector(".price-tag").textContent === "string" 
+                  ? parseFloat(card.querySelector(".price-tag").textContent.replace(/[^\d.-]/g, "")) || 0
+                  : Number(card.querySelector(".price-tag").textContent) || 0;
     const img = card.querySelector("img").src;
 
     const item = document.createElement("div");
@@ -329,7 +335,9 @@ document.addEventListener("click", e => {
     document.querySelector(".arrow").textContent =
       options.classList.contains("open") ? "▴" : "▾";
   }
-   fetch("footer.html")
+
+  // Load footer dynamically
+  fetch("footer.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer-container").innerHTML = data;
