@@ -322,7 +322,7 @@ body {
 /* ---------------- VIDEO SECTION ---------------- */
 .video-container {
   width: 100%;
-  max-height: 900px;
+  max-height: 400px;
   overflow: hidden;
   margin-bottom: 20px;
 }
