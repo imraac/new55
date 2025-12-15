@@ -2,17 +2,48 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: #fff;
+  background: #000; /* fallback in case video fails */
+  color: #fff;
+}
+
+/* ---------------- VIDEO BACKGROUND ---------------- */
+/* ---------------- VIDEO BACKGROUND ---------------- */
+.video-background {
+  position: absolute; /* 🔥 allow scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 200px;
+  height: 100vh; /* video height */
+  z-index: -1;
+  overflow: hidden;
+}
+
+.promo-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute; /* 🔥 scrolls with video */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+
+
+/* Ensure all content is above video */
+.pl-page-wrapper {
+  position: relative;
+  z-index: 1;
+  padding-top: 20px;
 }
 
 /* ---------------- HEADER ---------------- */
-.pl-top-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 18px 60px;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-}
+
 
 .pl-header-left {
   display: flex;
@@ -51,11 +82,6 @@ body {
 }
 
 /* ---------------- PAGE LAYOUT ---------------- */
-.pl-page-wrapper {
-  max-width: 1500px;
-  margin: 0 auto;
-}
-
 .pl-layout {
   display: grid;
   grid-template-columns: 280px auto;
@@ -66,9 +92,10 @@ body {
 
 /* ---------------- SIDEBAR ---------------- */
 .pl-sidebar {
-  background: #fff;
+  background: rgba(255,255,255,0.9);
+  color: #000;
   padding: 10px 0;
-  border: 1px solid rgb(250, 247, 225);
+  border-radius: 10px;
   max-height: 100vh;
   overflow-y: auto;
   position: relative;
@@ -144,82 +171,37 @@ body {
   border-top: 1px solid #e6e6e6;
 }
 
-/* ---------------- RECENT PRODUCTS ---------------- */
-.pl-recent-products {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 0 20px 20px;
-}
-
-.pl-recent-product-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: #ffffff;
-  padding: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.pl-recent-product-card:last-child {
-  border-bottom: none;
-}
-
-.pl-recent-product-img {
-  width: 65px;
-  height: 65px;
-  object-fit: contain;
-}
-
-.pl-recent-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.pl-recent-brand {
-  font-size: 13px;
-  color: #7a7a7a;
-  margin: 0;
-}
-
-.pl-recent-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 3px 0 5px;
-  color: #1f1f1f;
-}
-
-.pl-recent-price {
-  font-size: 15px;
-  font-weight: 700;
-  color: #f06e18;
-  margin: 0;
-}
-
 /* ---------------- PRODUCT GRID ---------------- */
 .pl-products-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
-  color: #c4c4c0;
 }
 
 .pl-product-card {
-  background: white;
+  background: rgba(255,255,255,0.85);
+  color: #000;
   padding: 20px;
-  border: 1px solid ;
+  border-radius: 12px;
   position: relative;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pl-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .pl-img-box {
   width: 100%;
   height: 250px;
-  background:white;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .pl-product-img {
@@ -285,8 +267,8 @@ body {
     width: 280px;
     height: 100%;
     z-index: 1000;
-    background: #dd6808 ;
-    border-right: 1px solid #dd965b ;
+    background: rgba(255,255,255,0.95);
+    border-right: 1px solid #ddd;
     padding: 20px 0;
     overflow-y: auto;
     transition: left 0.3s ease;
@@ -302,6 +284,8 @@ body {
 
   .pl-top-header {
     padding: 18px 20px;
+    background: rgba(0,0,0,0.6);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
   }
 }
 
@@ -318,18 +302,4 @@ body {
 
 .pl-overlay.active {
   display: block;
-}
-/* ---------------- VIDEO SECTION ---------------- */
-.video-container {
-  width: 100%;
-  max-height: 400px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.promo-video {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
 }
