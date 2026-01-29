@@ -1,322 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holiday Deals</title>
+<meta charset="UTF-8">
+<title>Auto Care Landing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: white;
+}
+
+/* ================= HERO WRAPPER ================= */
+.hero-wrapper {
+  position: relative;
+  width: 95%;
+  margin: 20px auto;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* ================= HERO ================= */
+.hero {
+  position: relative;
+  height: 90vh;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+/* 🎬 VIDEO */
+.hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1); /* less zoom */
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+/* dark overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 16, 27, 0.65);
+  z-index: 1;
+}
+
+/* ================= NAVBAR ================= */
+.navbar-container {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.navbar {
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  border-radius: 60px;
+  padding: 16px 40px;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.25),
+    0 0 0 6px rgba(255,255,255,0.15);
+
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.navbar a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #0a2540;
+}
+
+/* ================= HERO CONTENT ================= */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-title {
+  font-size: clamp(42px, 6vw, 82px);
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+/* ================= SIDE BUTTONS ================= */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 64px;
+  height: 120px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a2540;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5;
+  user-select: none;
+}
+
+.slider-btn.left {
+  left: -1px;
+  border-radius: 0 60px 60px 0;
+}
+
+.slider-btn.right {
+  right: -1px;
+  border-radius: 60px 0 0 60px;
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Navbar placeholder -->
-    <div id="navbar-container"></div>
+<div class="hero-wrapper">
 
-    <!-- FESTIVE TOP BANNER -->
-    <section class="festive-banner">
-        <img src="Assets/DEC.png" alt="Festive Deals Banner">
-    </section>
+  <section class="hero">
 
-    <!-- CATEGORY ROW BELOW BANNER -->
-    <section class="device-categories">
-        <div class="cat-item">
-            <img src="Assets/pixel-mb.webp" alt="Google Pixel Collection">
-        </div>
-        <div class="cat-item">
-            <img src="Assets/Fold-7-Series-A.webp" alt="Galaxy Fold Flip Collection">
-        </div>
-        <div class="cat-item">
-            <img src="Assets/ipad-mb.webp" alt="iPad Air & iPad Pro">
-        </div>
-        <div class="cat-item">
-            <img src="Assets/17-Pro-mb.webp" alt="iPhone 17 Pro">
-        </div>
-    </section>
+    <!-- ONE VIDEO ONLY -->
+    <video id="heroVideo" autoplay muted loop playsinline></video>
 
-    <!-- FESTIVE TEXT SECTION -->
-    <section class="festive-text">
-        <h1>Festive Deals</h1>
-        <p class="description">
-            Unwrap unbeatable discounts on your favourite electronics and home essentials.<br>
-            Stock is moving fast—grab your festive steals before they're gone!
-        </p>
-    </section>
-
-    <!-- Main Content Container -->
-    <div class="container">
-
-        <!-- Dynamic Product Listing -->
-        <div id="product-listing-container"></div>
-
-        <!-- Bestselling items -->
-        <section class="bestselling-items">
-            <h2>Bestselling items on Rollback</h2>
-            <div class="bestselling-slider">
-                <!-- Example cards (you can add more in CSS/JS) -->
-                <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/swaeter.jpg" alt="Arctic King Freezer">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $189.98</span>
-                        <span class="old">$299.97</span>
-                    </div>
-                    <p class="product-name">Arctic King 5.1 Cu. ft. 23.6" Convertible Chest Freezer, White</p>
-                    <div class="rating">★★★★☆ 2446</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>  <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/swaeter.jpg" alt="Arctic King Freezer">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $189.98</span>
-                        <span class="old">$299.97</span>
-                    </div>
-                    <p class="product-name">Arctic King 5.1 Cu. ft. 23.6" Convertible Chest Freezer, White</p>
-                    <div class="rating">★★★★☆ 2446</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>  <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/swaeter.jpg" alt="Arctic King Freezer">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $189.98</span>
-                        <span class="old">$299.97</span>
-                    </div>
-                    <p class="product-name">Arctic King 5.1 Cu. ft. 23.6" Convertible Chest Freezer, White</p>
-                    <div class="rating">★★★★☆ 2446</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>  <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/swaeter.jpg" alt="Arctic King Freezer">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $189.98</span>
-                        <span class="old">$299.97</span>
-                    </div>
-                    <p class="product-name">Arctic King 5.1 Cu. ft. 23.6" Convertible Chest Freezer, White</p>
-                    <div class="rating">★★★★☆ 2446</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>  <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/swaeter.jpg" alt="Arctic King Freezer">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $189.98</span>
-                        <span class="old">$299.97</span>
-                    </div>
-                    <p class="product-name">Arctic King 5.1 Cu. ft. 23.6" Convertible Chest Freezer, White</p>
-                    <div class="rating">★★★★☆ 2446</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>
-                <div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div><div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div><div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div><div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div><div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div><div class="bestselling-card">
-                    <span class="label rollback">Rollback</span>
-                    <img src="Assets/watch2.jpg" alt="Keurig Coffee Maker">
-                    <button class="add-btn">+ Add</button>
-                    <div class="price">
-                        <span class="now">Now $119.98</span>
-                        <span class="old">$219.98</span>
-                    </div>
-                    <p class="product-name">Keurig K-Duo Essentials Hot & Iced Single Serve K-Cup Pod & Carafe...</p>
-                    <div class="rating">★★★★☆ 1107</div>
-                    <div class="delivery">Free delivery, tomorrow</div>
-                </div>
-            </div>
-        </section>
-
+    <!-- NAVBAR -->
+    <div class="navbar-container">
+      <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+          <a href="#">Services</a>
+        <a href="#">Contact</a>
+      </nav>
     </div>
 
-    <!-- Footer placeholder -->
-    <div id="footer-container"></div>
+    <!-- SLIDER BUTTONS -->
+    <div class="slider-btn left" id="prevBtn">‹</div>
+    <div class="slider-btn right" id="nextBtn">›</div>
 
+    <!-- CONTENT -->
+    <div class="hero-content">
+      <h1 class="hero-title">RESTORE</h1>
+    </div>
+
+  </section>
+</div>
+
+
+<!-- ================= JAVASCRIPT SLIDER ================= -->
 <script>
-    // ===== LOAD NAVBAR DYNAMICALLY =====
-    fetch('Navbar.html')
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('navbar-container').innerHTML = html;
-            initNavbarSidebar();
-        })
-        .catch(err => console.error('Error loading navbar:', err));
+const videos = [
+  "Assets/vedio.mp4",
+  "Assets/vedio2.mp4",
+  "Assets/vedio3.mp4"
+];
 
-    // ===== LOAD FOOTER DYNAMICALLY =====
-    fetch('footer.html')
-        .then(res => res.text())
-        .then(html => {
-            const footer = document.getElementById("footer-container");
-            if (footer) footer.innerHTML = html;
-        })
-        .catch(err => console.error('Footer load error:', err));
+const videoEl = document.getElementById("heroVideo");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
 
-    // ===== LOAD PRODUCT LISTING DYNAMICALLY =====
-    fetch('Productlisting.html')
-        .then(res => res.text())
-        .then(html => {
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            const productContent = tempDiv.querySelector('.pl-page-wrapper');
-            if (productContent) {
-                document.getElementById('product-listing-container').appendChild(productContent);
-            }
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'Productlisting.css';
-            document.head.appendChild(link);
-            initProductListing();
-        })
-        .catch(err => console.error('Error loading product listing:', err));
+let index = 0;
 
-    // ===== NAVBAR SIDEBAR FUNCTION =====
-    function initNavbarSidebar() {
-        const navBurger = document.getElementById("nav-burger");
-        const sidebar = document.getElementById("sidebar");
-        const closeSidebar = document.getElementById("close-sidebar");
-        if (!navBurger || !sidebar || !closeSidebar) return;
+/* load first */
+videoEl.src = videos[index];
 
-        navBurger.addEventListener("click", e => {
-            e.stopPropagation();
-            sidebar.classList.add("open");
-        });
+function changeVideo(newIndex){
+  videoEl.style.opacity = 0;
 
-        closeSidebar.addEventListener("click", () => {
-            sidebar.classList.remove("open");
-        });
+  setTimeout(() => {
+    index = (newIndex + videos.length) % videos.length;
+    videoEl.src = videos[index];
+    videoEl.load();
+    videoEl.play();
+    videoEl.style.opacity = 1;
+  }, 200);
+}
 
-        document.addEventListener("click", e => {
-            if (!sidebar.contains(e.target) && !navBurger.contains(e.target)) {
-                sidebar.classList.remove("open");
-            }
-        });
-    }
-
-    // ===== PRODUCT LISTING SCRIPT =====
-    function initProductListing() {
-        const burgerBtn = document.getElementById('pl-burger-btn');
-        const sidebar = document.querySelector('.pl-sidebar');
-        let overlay = document.getElementById('pl-overlay');
-        if (!overlay) {
-            overlay = document.createElement('div');
-            overlay.id = 'pl-overlay';
-            overlay.classList.add('pl-overlay');
-            document.body.appendChild(overlay);
-        }
-
-        burgerBtn?.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        });
-
-        overlay?.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        const slider = document.querySelector('.pl-range-slider');
-        const priceLabel = document.querySelector('.pl-price-label');
-        const filterBtn = document.querySelector('.pl-filter-btn');
-        const products = document.querySelectorAll('.pl-product-card');
-
-        if (!slider || !priceLabel || !filterBtn) return;
-        const minPrice = parseInt(slider.dataset.min);
-        const maxPrice = parseInt(slider.dataset.max);
-
-        slider.addEventListener('input', () => {
-            const value = Math.round(minPrice + ((maxPrice - minPrice) * (slider.value / 100)));
-            priceLabel.textContent = `Price: KSh ${value.toLocaleString()}`;
-        });
-        slider.dispatchEvent(new Event('input'));
-
-        function parsePrice(priceText) {
-            const range = priceText.replace(/[KSh,\s]/g, '').split('–');
-            return range.map(p => parseInt(p.trim()));
-        }
-
-        filterBtn.addEventListener('click', () => {
-            const selectedPrice = Math.round(minPrice + ((maxPrice - minPrice) * (slider.value / 100)));
-            const tolerance = selectedPrice * 0.1;
-            products.forEach(product => {
-                const priceText = product.querySelector('.pl-product-price').textContent;
-                const parsed = parsePrice(priceText);
-                const [minP, maxP] = parsed.length === 2 ? parsed : [parsed[0], parsed[0]];
-                product.style.display = (selectedPrice >= minP - tolerance && selectedPrice <= maxP + tolerance) ? 'block' : 'none';
-            });
-        });
-
-        document.querySelector('.pl-close-sidebar')?.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        // Click product card to go to product page
-        products.forEach(productCard => {
-            productCard.addEventListener('click', () => {
-                const product = {
-                    title: productCard.querySelector('.pl-product-name')?.textContent || '',
-                    category: productCard.querySelector('.pl-category')?.textContent || '',
-                    subCategory: productCard.querySelector('.pl-subcat')?.textContent || '',
-                    price: productCard.querySelector('.pl-product-price')?.textContent || '',
-                    image: productCard.querySelector('img')?.src || ''
-                };
-                localStorage.setItem('selectedProduct', JSON.stringify(product));
-                window.location.href = 'Productcart.html';
-            });
-        });
-    }
+nextBtn.onclick = () => changeVideo(index + 1);
+prevBtn.onclick = () => changeVideo(index - 1);
 </script>
 
 </body>
